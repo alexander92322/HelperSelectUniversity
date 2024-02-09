@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">To university(2)</string>
+    <string name="splash_text">Выбери ВУЗ своей мечты!</string>
+    <string name="small_text1">Подожди немного...</string>
+    <string name="small_text2">Почти поступили!</string>
+    <string name="title">Выбери свой ВУЗ!</string>
+    <string name="hint_plain">Укажите свой общий балл</string>
+    <string name="EGE">Укажи свои баллы ЕГЭ:</string>
+    <string name="educational_place">Где бы ты хотел учиться?</string>
+    <string name="choose_top">Ты бы хотел учиться в топ-10 ВУЗов?</string>
+    <string name="choose_direction">Выбери, какие предметы сдавал на ЕГЭ:</string>
+    <string name="chooseprice">Рассматриваешь платное обучение?</string>
+    <string name="bt_next">Подобрать</string>
+    <string name="bt_restart">Перезайти</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="math">Математика(профиль)</string>
+    <string name="math_base">Математика(база)</string>
+    <string name="phys">Физика</string>
+    <string name="geo">География</string>
+    <string name="info">Информатика</string>
+    <string name="bio">Биология</string>
+    <string name="chemistry">Химия</string>
+    <string name="history">История</string>
+    <string name="lit">Литература</string>
+    <string name="eng">Английский</string>
+    <string name="min_point">Ваши баллы ниже возможных проходных</string>
+    <string name="max_point">Слишком высокий балл!</string>
+    <string name="empty_fields_point">Введите свои баллы!</string>
+    <string name="many_subjects">Обязательно нужно выбрать именно 3 предмета</string>
+    <string name="two_equals_subject">Нельзя выбрать 2 математики!</string>
+    <string name="min_one_math">Должна быть выбрана одна математика!</string>
+    <string name="splash_selection_text">Мы подбираем ВУЗы для вас! Желаем вам выбрать именно тот, о котором вы всегда мечтали!</string>
+    <string-array name="spinner_value">
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+        <item>Все регионы</item>
+    </string-array>
+
+
+</resources>

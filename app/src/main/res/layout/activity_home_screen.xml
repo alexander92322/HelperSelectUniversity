@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_homescreen"
+    android:orientation="vertical"
+    tools:context=".HomeScreen">
+
+<!--1 block-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/gr"
+        >
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/title"
+        android:textAlignment="center"
+        android:textColor="@color/title_homescreen"
+        android:layout_marginTop="10dp"
+        android:textSize="40dp"
+        android:textStyle="italic"
+        android:shadowColor="@color/backsplash"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="3"
+        />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/EGE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/EGE"
+        android:textAlignment="textStart"
+        android:textColor="@color/title_homescreen"
+        android:layout_marginTop="5dp"
+        android:textSize="15dp" />
+    <EditText
+        android:id="@+id/EGE_points"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_plain"
+        android:ems="10"
+        android:inputType="number" />
+
+<!--2 block-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/gr"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp" />
+        <TextView
+            android:id="@+id/titlen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_direction"
+            android:textAlignment="textStart"
+            android:textColor="@color/title_homescreen"
+            android:textSize="15dp"
+            android:layout_marginTop="5dp" />
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TableRow>
+
+        <CheckBox
+            android:id="@+id/math"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/math"
+            android:textColor="@color/black"
+            android:visibility="visible" />
+
+        <CheckBox
+            android:id="@+id/phys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:checked="false"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/phys"
+            android:textColor="@color/black"
+            android:visibility="visible" />
+    </TableRow>
+    <TableRow>
+
+        <CheckBox
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/info"
+            android:textColor="@color/black"
+            android:visibility="visible" />
+
+        <CheckBox
+            android:id="@+id/bio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:checked="false"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/bio"
+            android:textColor="@color/black"
+            android:visibility="visible" />
+    </TableRow>
+    <TableRow>
+
+        <CheckBox
+            android:id="@+id/lit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/lit"
+            android:textColor="@color/black"
+            android:visibility="visible" />
+
+        <CheckBox
+            android:id="@+id/chemistry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:checked="false"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/chemistry"
+            android:textColor="@color/black"
+            android:visibility="visible" />
+    </TableRow>
+    <TableRow>
+
+        <CheckBox
+            android:id="@+id/eng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/eng"
+            android:textColor="@color/black"
+            android:visibility="visible" />
+
+        <CheckBox
+            android:id="@+id/history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:checked="false"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/history"
+            android:textColor="@color/black"
+
+            android:visibility="visible" />
+    </TableRow>
+    <TableRow>
+        <CheckBox
+            android:id="@+id/math_base"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/math_base"
+            android:textColor="@color/black"
+            android:visibility="visible" />
+        <CheckBox
+            android:id="@+id/geo"
+            android:layout_marginLeft="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/geo"
+            android:textColor="@color/black"
+            android:visibility="visible" />
+    </TableRow>
+</TableLayout>
+
+<!--3 block-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/gr"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="6dp"/>
+        <TextView
+        android:id="@+id/TOP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_top"
+        android:textAlignment="textStart"
+        android:textColor="@color/title_homescreen"
+        android:textSize="15dp"
+        android:layout_marginTop="5dp"
+        />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <RadioButton
+            android:id="@+id/radioButton_yes"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/yes" />
+        <RadioButton
+            android:id="@+id/radioButton_no"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/no"
+            android:checked="true"/>
+    </RadioGroup>
+
+    <!--4 block-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/gr"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="6dp"/>
+        <TextView
+            android:id="@+id/educational_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/educational_place"
+            android:textColor="@color/title_homescreen"
+            android:textSize="15dp"
+            android:layout_marginTop="5dp"
+            />
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/spinner_value"
+            />
+
+    <!--5 block-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/gr"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="6dp"/>
+    <TextView
+        android:id="@+id/chooseprice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/chooseprice"
+        android:textAlignment="textStart"
+        android:textColor="@color/title_homescreen"
+        android:textSize="15dp"
+        android:layout_marginTop="5dp"
+        />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <RadioButton
+            android:id="@+id/radioButton_yes2"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/yes" />
+        <RadioButton
+            android:id="@+id/radioButton_no2"
+            android:layout_width="200dp"
+            android:layout_height="fill_parent"
+            android:text="@string/no"
+            android:checked="true"/>
+    </RadioGroup>
+
+
+
+    <!--7 block-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/gr"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="6dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/restart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/bt_restart"
+                android:onClick="ClickonRetrait"
+                android:text="@string/bt_restart" />
+            <Button
+                android:id="@+id/next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/bt_next"
+                android:onClick="ClickonNext"
+                android:text="@string/bt_next" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="backgroun_div_homescreen">#F4E7D1</color>
+    <color name="pg_1">#38A3D3</color>
+    <color name="pg_2">#5BCAD8</color>
+    <color name="pg_3">#87A3A6</color>
+    <color name="pg_4">#F4E139</color>
+    <color name="pg_5">#64EA69</color>
+    <color name="backsplash">#E0A47B</color>
+    <color name="title_splashscreen">#FFFFFF</color>
+    <color name="small_text">#E7FF00</color>
+    <color name="background_homescreen">#FAECDB</color>
+    <color name="title_homescreen">#4b382c</color>
+    <color name="bt_next">#518053</color>
+    <color name="bt_restart">#AE5050</color>
+    <color name="text_splashselection_color">#3C1A1A</color>
+
+</resources>
