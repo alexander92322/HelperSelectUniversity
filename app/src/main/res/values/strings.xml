@@ -27,7 +27,7 @@
     <string name="min_point">Ваши баллы ниже возможных проходных</string>
     <string name="max_point">Слишком высокий балл!</string>
     <string name="empty_fields_point">Введите свои баллы!</string>
-    <string name="many_subjects">Обязательно нужно выбрать именно 3 предмета</string>
+    <string name="many_subjects">Можно выбрать только 3 или 4 предмета</string>
     <string name="two_equals_subject">Нельзя выбрать 2 математики!</string>
     <string name="min_one_math">Должна быть выбрана одна математика!</string>
     <string name="splash_selection_text">Мы подбираем ВУЗы для вас! Желаем вам выбрать именно тот, о котором вы всегда мечтали!</string>

@@ -6,6 +6,14 @@ public class AbiturientData {
     private static int point;
     private static boolean paid;
     private static boolean top;
+
+    public static int getValue_subject() {
+        return value_subject;
+    }
+
+
+
+    private static int value_subject;
     private static String educational_place;
     private static ArrayList<String> subject;
 
@@ -34,6 +42,10 @@ public class AbiturientData {
 
     public static void setTop(boolean top) {
         AbiturientData.top = top;
+    }
+
+    public static void setValue_subject(int value_subject) {
+        AbiturientData.value_subject = value_subject;
     }
 
     public static String getEducational_place() {

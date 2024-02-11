@@ -72,10 +72,15 @@ public static String educational_place = "";
             Toast.makeText(this, R.string.min_point, Toast.LENGTH_LONG).show();
             data_correct=false;
         }
-        if(point>410 && data_correct==true){
+
+        if(point>420 && value_subject == 4 && data_correct==true){
+            Toast.makeText(this, R.string.max_point, Toast.LENGTH_LONG).show();
+            data_correct=false;
+        } else if (point>320 && value_subject == 3 && data_correct==true) {
             Toast.makeText(this, R.string.max_point, Toast.LENGTH_LONG).show();
             data_correct=false;
         }
+
 
         //subject
         if(checkBox_math.isChecked() && checkBox_math_base.isChecked() && data_correct==true)
@@ -87,7 +92,7 @@ public static String educational_place = "";
             Toast.makeText(this, R.string.min_one_math, Toast.LENGTH_LONG).show();
             data_correct=false;
         }
-        else if(value_subject!=3 && data_correct==true) {
+        else if((value_subject!=3 && value_subject!=4) && data_correct==true) {
             Toast.makeText(this, R.string.many_subjects, Toast.LENGTH_LONG).show();
             data_correct = false;
         }
@@ -128,6 +133,7 @@ public static String educational_place = "";
             AbiturientData.setTop(top);
             AbiturientData.setEducational_place(educational_place);
             AbiturientData.setSubject(subject);
+            AbiturientData.setValue_subject(value_subject);
 
             Intent intent = new Intent(this,SplashSelection.class);
             //Intent intent = new Intent(this,Selection.class);

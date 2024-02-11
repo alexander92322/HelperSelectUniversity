@@ -20,8 +20,8 @@ public class SplashSelection extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_selection);
         final TextView emerging_text = findViewById( R.id.emerging_text );
-        final int delay_ms = 150;
-        emerging_text.setTag("Мы подбираем ВУЗы для вас! Желаем вам выбрать именно тот, о котором вы всегда мечтали!");
+        final int delay_ms = 100;
+        emerging_text.setTag("Мы подбираем лучшие ВУЗы для вас. Надеемся, вам понравится!");
         emerging_text.postDelayed( new Runnable(){
             @Override
             public void run(){
@@ -31,7 +31,7 @@ public class SplashSelection extends AppCompatActivity {
                     emerging_text.setText( text+ text_tag.substring( text.length(), text.length()+1 ) );
                     emerging_text.postDelayed( this, delay_ms );
                 }
-                if(emerging_text.getText().toString().equals("Мы подбираем ВУЗы для вас! Желаем вам выбрать именно тот, о котором вы всегда мечтали!"))
+                if(emerging_text.getText().toString().equals("Мы подбираем лучшие ВУЗы для вас. Надеемся, вам понравится!"))
                 {
                     stopq();
                     openSelection++;
