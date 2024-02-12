@@ -64,8 +64,18 @@ ProgressBar pb;
 
         thread.start();
     }
+    public void getPointsfromSite(){
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(progress>0){
+            //TODO: add exemplars class with info about university
 
 
+        }
 
-
+    }
 }
