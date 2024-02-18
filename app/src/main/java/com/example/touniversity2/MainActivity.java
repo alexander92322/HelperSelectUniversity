@@ -9,6 +9,15 @@ import android.view.View;
 
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class MainActivity extends AppCompatActivity {
 int progress = 0;
@@ -20,6 +29,7 @@ ProgressBar pb;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         pb = findViewById(R.id.progressBar);
         pb.setProgress(0);
@@ -64,18 +74,7 @@ ProgressBar pb;
 
         thread.start();
     }
-    public void getPointsfromSite(){
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(progress>0){
-            //TODO: add exemplars class with info about university
 
 
-        }
 
-    }
 }

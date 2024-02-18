@@ -15,9 +15,16 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class HomeScreen extends AppCompatActivity {
     public static boolean data_correct=false;
@@ -26,16 +33,31 @@ public class HomeScreen extends AppCompatActivity {
     public static int value_subject=0;
 
 public static boolean top=false;
-
+public String content = "?";
+public String content2 = "?";
 public static boolean paid=false;
 public static String educational_place = "";
     ArrayList<String> subject = new ArrayList<String>();
+    public static final ArrayList<String> EmptyList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+        new Thread(new Runnable() {
+            public void run() {
+                try{
+                     content = getContent("https://stackoverflow.com/");
+                     content2 = getContent("https://javarush.com/groups/posts/isklyucheniya-java");
+                }
+                catch (IOException ex){
+                    content="?";
+                }
+            }
+        }).start();
     }
+
+
     public void ClickonRetrait(View view){
         subject.removeAll(subject);
         value_subject=0;
@@ -73,10 +95,10 @@ public static String educational_place = "";
             data_correct=false;
         }
 
-        if(point>420 && value_subject == 4 && data_correct==true){
+        if(point>420 && value_subject == 3 && data_correct==true){
             Toast.makeText(this, R.string.max_point, Toast.LENGTH_LONG).show();
             data_correct=false;
-        } else if (point>320 && value_subject == 3 && data_correct==true) {
+        } else if (point>320 && value_subject == 2 && data_correct==true) {
             Toast.makeText(this, R.string.max_point, Toast.LENGTH_LONG).show();
             data_correct=false;
         }
@@ -92,7 +114,7 @@ public static String educational_place = "";
             Toast.makeText(this, R.string.min_one_math, Toast.LENGTH_LONG).show();
             data_correct=false;
         }
-        else if((value_subject!=3 && value_subject!=4) && data_correct==true) {
+        else if((value_subject!=3 && value_subject!=2) && data_correct==true) {
             Toast.makeText(this, R.string.many_subjects, Toast.LENGTH_LONG).show();
             data_correct = false;
         }
@@ -136,12 +158,72 @@ public static String educational_place = "";
             AbiturientData.setValue_subject(value_subject);
 
             Intent intent = new Intent(this,SplashSelection.class);
-            //Intent intent = new Intent(this,Selection.class);
             startActivity(intent);
 
 
 
         }
+
+    }
+    private String getContent(String path) throws  IOException {
+        BufferedReader reader=null;
+        InputStream stream = null;
+        HttpsURLConnection connection = null;
+        try {
+            URL url=new URL(path);
+            connection =(HttpsURLConnection)url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setReadTimeout(1000);
+            connection.connect();
+            stream = connection.getInputStream();
+            reader= new BufferedReader(new InputStreamReader(stream));
+            StringBuilder buf=new StringBuilder();
+            String line;
+            while ((line=reader.readLine()) != null) {
+                buf.append(line).append("\n");
+            }
+            return(buf.toString());
+        }
+        finally {
+            if (reader != null) {
+                reader.close();
+            }
+            if (stream != null) {
+                stream.close();
+            }
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+
+    }
+
+    @Override
+    protected void onResume() {
+//
+//        Toast.makeText(this, "qwe", Toast.LENGTH_SHORT).show();
+        super.onResume();
+//        value_subject=;
+//        point=0;
+//        top=false;
+//        paid=false;
+//        educational_place = "";
+//        subject.removeAll(subject);
+//
+//        AbiturientData.setPaid(false);
+//        AbiturientData.setTop(false);
+//        AbiturientData.setEducational_place("");
+//        AbiturientData.setPoint(0);
+//        AbiturientData.setSubject(EmptyList);
+//        AbiturientData.setValue_subject(0);
+
+
 
     }
 }

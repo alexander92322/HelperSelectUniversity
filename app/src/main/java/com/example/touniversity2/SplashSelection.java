@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,11 +18,19 @@ public class SplashSelection extends AppCompatActivity {
     public static int openSelection=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_selection);
         final TextView emerging_text = findViewById( R.id.emerging_text );
         final int delay_ms = 100;
+        Button button;
+        button = findViewById(R.id.bt_next);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emerging_text.setText("Мы подбираем лучшие ВУЗы для вас. Надеемся, вам понравится!");
+            }
+        });
+
         emerging_text.setTag("Мы подбираем лучшие ВУЗы для вас. Надеемся, вам понравится!");
         emerging_text.postDelayed( new Runnable(){
             @Override
@@ -59,6 +69,7 @@ public class SplashSelection extends AppCompatActivity {
             startActivity(intent);}
 
     }
+
 
 
 }

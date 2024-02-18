@@ -16,5 +16,6 @@
     <color name="bt_next">#518053</color>
     <color name="bt_restart">#9063E1</color>
     <color name="text_splashselection_color">#3C1A1A</color>
+    <color name="bgtext_splashselection_color">#E8EDB0</color>
 
 </resources>
