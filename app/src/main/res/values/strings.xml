@@ -32,6 +32,7 @@
     <string name="min_one_math">Должна быть выбрана одна математика!</string>
     <string name="splash_selection_text">Мы подбираем ВУЗы для вас! Желаем вам выбрать именно тот, о котором вы всегда мечтали!</string>
     <string name="bt_skip">Пропустить</string>
+    <string name="splashselection_message">Мы подбираем лучшие ВУЗы для вас. Надеемся, вам понравится!</string>
     <string-array name="spinner_value">
         <item>Москва</item>
         <item>Санкт-Петербург</item>

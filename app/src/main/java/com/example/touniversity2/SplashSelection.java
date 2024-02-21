@@ -16,20 +16,16 @@ import java.util.ArrayList;
 public class SplashSelection extends AppCompatActivity {
 
     public static int openSelection=0;
+    public TextView emerging_text=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_selection);
-        final TextView emerging_text = findViewById( R.id.emerging_text );
+        emerging_text = findViewById( R.id.emerging_text );
         final int delay_ms = 100;
         Button button;
         button = findViewById(R.id.bt_next);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                emerging_text.setText("Мы подбираем лучшие ВУЗы для вас. Надеемся, вам понравится!");
-            }
-        });
+        ckeckClick();
 
         emerging_text.setTag("Мы подбираем лучшие ВУЗы для вас. Надеемся, вам понравится!");
         emerging_text.postDelayed( new Runnable(){
@@ -59,7 +55,9 @@ public class SplashSelection extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+
         super.onResume();
+        ckeckClick();
         openSelection=0;
     }
 
@@ -68,6 +66,20 @@ public class SplashSelection extends AppCompatActivity {
             Intent intent = new Intent(SplashSelection.this, Selection.class);
             startActivity(intent);}
 
+    }
+
+    public void ckeckClick(){
+        Button button;
+        button = findViewById(R.id.bt_next);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    Toast.makeText(SplashSelection.this, "qwe", Toast.LENGTH_SHORT).show();
+                     Intent intent = new Intent(SplashSelection.this, Selection.class);
+                     openSelection++;
+                    startActivity(intent);
+            }
+        });
     }
 
 
