@@ -74,7 +74,6 @@ public class SplashSelection extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Toast.makeText(SplashSelection.this, "qwe", Toast.LENGTH_SHORT).show();
                      Intent intent = new Intent(SplashSelection.this, Selection.class);
                      openSelection++;
                     startActivity(intent);

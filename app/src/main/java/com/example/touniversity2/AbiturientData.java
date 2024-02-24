@@ -6,16 +6,13 @@ public class AbiturientData {
     private static int point;
     private static boolean paid;
     private static boolean top;
+    private static int value_subject;
+    private static String educational_place;
+    private static ArrayList<String> subject;
 
     public static int getValue_subject() {
         return value_subject;
     }
-
-
-
-    private static int value_subject;
-    private static String educational_place;
-    private static ArrayList<String> subject;
 
     public AbiturientData() {
     }

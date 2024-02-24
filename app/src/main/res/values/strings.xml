@@ -33,6 +33,7 @@
     <string name="splash_selection_text">Мы подбираем ВУЗы для вас! Желаем вам выбрать именно тот, о котором вы всегда мечтали!</string>
     <string name="bt_skip">Пропустить</string>
     <string name="splashselection_message">Мы подбираем лучшие ВУЗы для вас. Надеемся, вам понравится!</string>
+    <string name="mathbase_checked">Необходимо выбрать 3 или 4 предмета(+русский)</string>
     <string-array name="spinner_value">
         <item>Москва</item>
         <item>Санкт-Петербург</item>
