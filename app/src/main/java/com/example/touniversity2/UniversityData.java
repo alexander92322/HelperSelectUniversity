@@ -33,6 +33,10 @@ public class UniversityData {
         this.dvi = dvi;
     }
 
+    public UniversityData() {
+
+    }
+
     public String getCalled_university() {
         return called_university;
     }
