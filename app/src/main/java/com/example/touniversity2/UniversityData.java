@@ -3,6 +3,7 @@ package com.example.touniversity2;
 import android.media.Image;
 
 public class UniversityData {
+    //class for BD_ROOM
     private String called_university;
     private String called_program;
     private int point_tofree;

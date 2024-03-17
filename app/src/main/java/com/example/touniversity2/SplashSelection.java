@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class SplashSelection extends AppCompatActivity {
 
-    public static int openSelection=0;
-    public TextView emerging_text=null;
+    private static int openSelection=0;
+    private TextView emerging_text=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
