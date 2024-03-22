@@ -42,7 +42,6 @@ public class HomeScreen extends AppCompatActivity {
 
 
     private static boolean top=false;
-private String content = "?";
 private static boolean paid=false;
 private static String educational_place = "";
     ArrayList<String> subject = new ArrayList<>();
@@ -54,10 +53,24 @@ private static String educational_place = "";
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        subject.removeAll(subject);
+        value_subject=0;
+        int point=0;
+        top=false;
+        paid=false;
+        educational_place = "";
+    }
 
     public void ClickonRetrait(View view){
         subject.removeAll(subject);
         value_subject=0;
+        int point=0;
+        top=false;
+        paid=false;
+        educational_place = "";
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
@@ -164,100 +177,12 @@ private static String educational_place = "";
             AbiturientData.setSubject(subject);
             AbiturientData.setValue_subject(value_subject);
 
-            //addToDB("tyvuzop");
-            fill_database();
             Intent intent = new Intent(this,SplashSelection.class);
             startActivity(intent);
+            this.finish();
         }
 
     }
 
-
-
-    private String getContent(String path) throws  IOException {
-        String title;
-        int pointf;
-        int pointp;
-        String subject;
-        String learning_form;
-        String city;
-        int price;
-
-        int index;
-        String findpointf = "которые есть в базе сайта";
-        String findpointp = "";
-        BufferedReader reader=null;
-        InputStream stream = null;
-        HttpsURLConnection connection = null;
-        try {
-            URL url=new URL(path);
-            connection =(HttpsURLConnection)url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setReadTimeout(1000);
-            connection.connect();
-            stream = connection.getInputStream();
-            reader= new BufferedReader(new InputStreamReader(stream));
-            StringBuilder buf=new StringBuilder();
-            String line;
-            while ((line=reader.readLine()) != null) {
-                buf.append(line).append("\n");
-            }
-            //get info for db fields
-            Document html = Jsoup.parse(String.valueOf(buf));
-            String text = html.toString();
-
-
-            index = text.indexOf(findpointf);
-            try {
-                pointf = Integer.parseInt(text.substring(index+82, index+85));
-            }catch (Exception e){
-                pointf=0;
-            }
-            subject=text.substring(index+82, index+85);
-            title = html.title();
-
-            return(buf.toString());
-        }
-        finally {
-            if (reader != null) {
-                reader.close();
-            }
-            if (stream != null) {
-                stream.close();
-            }
-            if (connection != null) {
-                connection.disconnect();
-            }
-        }
-    }
-
-
-        public void addToDB(String datahtml) {
-//            DbHelper dbHelper= new DbHelper(this);
-//
-//            UniversityData universityData = new UniversityData(datahtml, "Бизнес-информатика", 264, 192, "Иностранный язык, Математика(профиль)", 0, "Новосибирск", 195000, "bg.png","https://www.nsu.ru/n/economics-department/programs/business-informatics/", "https://vuzopedia.ru/vuz/1612/napr/11", 3, "Нет");
-//            dbHelper.AddData(universityData);
-
-        }
-
-
-      public void fill_database() {
-          //Toast.makeText(this, "qwe", Toast.LENGTH_SHORT).show();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    String c2 = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/185");
-                    String c3 = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/208");
-                    String c = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/201");
-                }
-                catch (IOException ex){
-                    content="?";
-                }
-            }
-        }).start();
-
-
-      }
 
 }

@@ -74,7 +74,7 @@ public class SplashSelection extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                     Intent intent = new Intent(SplashSelection.this, Selection.class);
+                     Intent intent = new Intent(SplashSelection.this, HomeScreen.class);
                      openSelection++;
                     startActivity(intent);
             }
