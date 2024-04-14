@@ -39,7 +39,7 @@ public class HomeScreen extends AppCompatActivity {
     private static int value_subject=0;
 
 
-
+    String content;
 
     private static boolean top=false;
 private static boolean paid=false;
@@ -176,12 +176,166 @@ private static String educational_place = "";
             AbiturientData.setEducational_place(educational_place);
             AbiturientData.setSubject(subject);
             AbiturientData.setValue_subject(value_subject);
+            new Thread(new Runnable() {
+                public void run() {
 
+                    try{
+                        //content = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/201");
+                        content = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/302");
+                    }
+                    catch (IOException ex){
+                        content="?";
+                    }
+                }
+            }).start();
             Intent intent = new Intent(this,SplashSelection.class);
             startActivity(intent);
             this.finish();
         }
 
+    }
+
+
+
+    private String getContent(String path) throws  IOException {
+        String title;
+        int pointf;
+        int pointp;
+        String subject=" ";
+        boolean paid;
+        String city;
+        int price=2;
+
+        int index;
+        int index2;
+        String findcity = "id=\"newChooseq\" class=\"mmob\">";
+        String findcityEnd = "</span>";
+        String findpointf = "которые есть в базе сайта";
+        String findpointp1 = "<div class=\"itemNewBlockCombActive\" style=\"position: relative;";
+        String findUniversityCalled = ", профиль";
+        String findsubject1 = "1. ";
+        String findsubject2 = "2. ";
+        String findsubject3 = "3. ";
+        String findprice = "Стоимость: <strong>от ";
+
+        String findsubjectEnd = " - ";
+        String cut = "";
+
+        BufferedReader reader=null;
+        InputStream stream = null;
+        HttpsURLConnection connection = null;
+        try {
+            URL url=new URL(path);
+            connection =(HttpsURLConnection)url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setReadTimeout(1000);
+            connection.connect();
+            stream = connection.getInputStream();
+            reader= new BufferedReader(new InputStreamReader(stream));
+            StringBuilder buf=new StringBuilder();
+            String line;
+            while ((line=reader.readLine()) != null) {
+                buf.append(line).append("\n");
+            }
+
+            //get info for db fields..........................
+            Document html = Jsoup.parse(String.valueOf(buf));
+            String text = html.toString();
+
+            index = text.indexOf(findpointf);
+            try {
+                pointf = Integer.parseInt(text.substring(index+82, index+85));
+            }catch (Exception e){
+                pointf=0;
+            }
+
+            try {
+                index=0;
+                index = text.indexOf(findpointp1);
+                try {
+                    pointp = Integer.parseInt(text.substring(index + 108, index + 111));
+                }catch (Exception e){
+                    pointp = Integer.parseInt(text.substring(index + 111, index + 113));
+                }
+            } catch (Exception e){
+                pointp=0;
+            }
+
+            title = html.title();
+            try{
+                index=0;
+                index = title.indexOf(findUniversityCalled);
+                title = title.substring(0,index);
+            }catch(Exception e) {
+                title = html.title();
+            }
+
+            try{
+                index=0;
+                index = text.indexOf(findsubject1);
+                cut = text.substring(index+findsubject1.length(),index+findsubject1.length()+31);
+                index2 = cut.indexOf(findsubjectEnd);
+                subject = cut.substring(0,index2);
+
+                index = text.indexOf(findsubject2);
+                cut = text.substring(index+findsubject2.length(),index+findsubject2.length()+31);
+                index2 = cut.indexOf(findsubjectEnd);
+                subject += ", " + cut.substring(0,index2);
+
+                index = text.indexOf(findsubject3);
+                cut = text.substring(index+findsubject3.length(),index+findsubject3.length()+31);
+                index2 = cut.indexOf(findsubjectEnd);
+                if(!cut.substring(0,1).equals("Д")){
+                subject += ", " + cut.substring(0,index2);}
+            }catch(Exception e) {
+                subject=" ";
+            }
+
+            if(pointf==0){
+                paid=true;
+            }
+            else{
+                paid=false;
+            }
+
+            try {
+                index = 0;
+                index = text.indexOf(findcity);
+
+                cut = text.substring(index + findcity.length()+1, index + findcity.length() + 31);
+                index2 = cut.indexOf(findcityEnd);
+                city = cut.substring(0, index2);
+            }catch (Exception e){
+                city="";
+            }
+
+            try{
+                index = 0;
+                index = text.indexOf(findprice);
+                cut = text.substring(index+findcity.length()-7, index + findcity.length()-1);
+                price = Integer.parseInt(cut);
+            }catch (Exception e){
+                price =0;
+            }
+
+
+
+            title = html.title();
+            //.....................
+
+            return(buf.toString());
+        }
+        finally {
+            if (reader != null) {
+                reader.close();
+            }
+            if (stream != null) {
+                stream.close();
+            }
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
     }
 
 
