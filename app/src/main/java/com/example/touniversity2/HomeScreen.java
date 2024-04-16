@@ -2,7 +2,11 @@ package com.example.touniversity2;
 
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +36,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.security.auth.Subject;
 
 public class HomeScreen extends AppCompatActivity {
+    UniversityDatabase universityDB;
 
     private static boolean data_correct=false;
     private static final int min_point=156;
@@ -46,11 +51,26 @@ private static boolean paid=false;
 private static String educational_place = "";
     ArrayList<String> subject = new ArrayList<>();
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+        RoomDatabase.Callback myCallback =new RoomDatabase.Callback() {
+            @Override
+            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                super.onCreate(db);
+            }
 
+            @Override
+            public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                super.onOpen(db);
+            }
+        };
+        universityDB = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
+                "universityDB").addCallback(myCallback).build();
     }
 
     @Override
@@ -182,6 +202,7 @@ private static String educational_place = "";
                     try{
                         //content = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/201");
                         content = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/302");
+
                     }
                     catch (IOException ex){
                         content="?";
@@ -204,7 +225,7 @@ private static String educational_place = "";
         String subject=" ";
         boolean paid;
         String city;
-        int price=2;
+        int price;
 
         int index;
         int index2;

@@ -32,6 +32,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
 
     implementation("org.jsoup:jsoup:1.15.2")
     implementation("androidx.appcompat:appcompat:1.6.1")
