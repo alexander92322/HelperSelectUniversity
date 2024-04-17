@@ -70,7 +70,15 @@ private static String educational_place = "";
             }
         };
         universityDB = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
-                "universityDB").addCallback(myCallback).build();
+                "UniversityDB").addCallback(myCallback).build();
+        University university = new University("ADASS","asdasd",99,99,"fgsd","d","g",989, "h", "j","k",3,"l");
+        new Runnable(){
+            @Override
+            public void run() {
+                universityDB.getUniversityDAO().addUniversity(university);
+            }
+        };
+
     }
 
     @Override
