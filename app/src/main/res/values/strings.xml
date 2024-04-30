@@ -34,6 +34,8 @@
     <string name="bt_skip">Вернуться к фильтрам</string>
     <string name="splashselection_message">Мы подбираем лучшие ВУЗы для вас. Надеемся, вам понравится!</string>
     <string name="mathbase_checked">Необходимо выбрать 3 или 4 предмета(+русский)</string>
+    <string name="BVI">Без вступительных испытаний</string>
+    <string name="DVI">Есть вступительные испытания</string>
 
     <string-array name="spinner_value">
         <item>Москва</item>

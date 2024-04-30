@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -31,12 +32,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.security.auth.Subject;
 
 public class HomeScreen extends AppCompatActivity {
-    UniversityDatabase universityDB;
+    UniversityDatabase universityDatabase;
 
     private static boolean data_correct=false;
     private static final int min_point=156;
@@ -44,7 +47,7 @@ public class HomeScreen extends AppCompatActivity {
     private static int value_subject=0;
 
 
-    String content;
+    UniversityData content;
 
     private static boolean top=false;
 private static boolean paid=false;
@@ -58,26 +61,27 @@ private static String educational_place = "";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-        RoomDatabase.Callback myCallback =new RoomDatabase.Callback() {
-            @Override
-            public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                super.onCreate(db);
-            }
 
-            @Override
-            public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                super.onOpen(db);
-            }
-        };
-        universityDB = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
-                "UniversityDB").addCallback(myCallback).build();
-        University university = new University("ADASS","asdasd",99,99,"fgsd","d","g",989, "h", "j","k",3,"l");
-        new Runnable(){
+
+    }
+
+    public void addback(University university){
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executorService.execute(new Runnable() {
             @Override
             public void run() {
-                universityDB.getUniversityDAO().addUniversity(university);
+                universityDatabase.getUniversityDAO().addUniversity(university);
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(HomeScreen.this, "Added to DB", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
-        };
+        });
 
     }
 
@@ -204,16 +208,32 @@ private static String educational_place = "";
             AbiturientData.setEducational_place(educational_place);
             AbiturientData.setSubject(subject);
             AbiturientData.setValue_subject(value_subject);
+            RoomDatabase.Callback myCallback =new RoomDatabase.Callback() {
+                @Override
+                public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                    super.onCreate(db);
+                }
+
+                @Override
+                public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                    super.onOpen(db);
+                }
+            };
+            universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
+                    "University").addCallback(myCallback).build();
+            University university = new University("ADASS","asdasd",99,99,"fgsd","d","g",989, "h", "j","k",3,"l");
+            addback(university);
+
             new Thread(new Runnable() {
                 public void run() {
 
                     try{
-                        //content = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/201");
-                        content = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/302");
+                        content = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/201");
+                        //content = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/302");
 
                     }
                     catch (IOException ex){
-                        content="?";
+                        content=null;
                     }
                 }
             }).start();
@@ -225,8 +245,7 @@ private static String educational_place = "";
     }
 
 
-
-    private String getContent(String path) throws  IOException {
+    private UniversityData getContent(String path) throws  IOException {
         String title;
         int pointf;
         int pointp;
@@ -234,6 +253,7 @@ private static String educational_place = "";
         boolean paid;
         String city;
         int price;
+        String dvi="";
 
         int index;
         int index2;
@@ -299,26 +319,7 @@ private static String educational_place = "";
                 title = html.title();
             }
 
-            try{
-                index=0;
-                index = text.indexOf(findsubject1);
-                cut = text.substring(index+findsubject1.length(),index+findsubject1.length()+31);
-                index2 = cut.indexOf(findsubjectEnd);
-                subject = cut.substring(0,index2);
 
-                index = text.indexOf(findsubject2);
-                cut = text.substring(index+findsubject2.length(),index+findsubject2.length()+31);
-                index2 = cut.indexOf(findsubjectEnd);
-                subject += ", " + cut.substring(0,index2);
-
-                index = text.indexOf(findsubject3);
-                cut = text.substring(index+findsubject3.length(),index+findsubject3.length()+31);
-                index2 = cut.indexOf(findsubjectEnd);
-                if(!cut.substring(0,1).equals("Д")){
-                subject += ", " + cut.substring(0,index2);}
-            }catch(Exception e) {
-                subject=" ";
-            }
 
             if(pointf==0){
                 paid=true;
@@ -347,12 +348,40 @@ private static String educational_place = "";
                 price =0;
             }
 
+            try{
+                index=0;
+                index = text.indexOf(findsubject1);
+                cut = text.substring(index+findsubject1.length(),index+findsubject1.length()+31);
+                index2 = cut.indexOf(findsubjectEnd);
+                subject = cut.substring(0,index2);
+
+                index = text.indexOf(findsubject2);
+                cut = text.substring(index+findsubject2.length(),index+findsubject2.length()+31);
+                index2 = cut.indexOf(findsubjectEnd);
+                subject += ", " + cut.substring(0,index2);
+
+                index = text.indexOf(findsubject3);
+                cut = text.substring(index+findsubject3.length(),index+findsubject3.length()+31);
+                index2 = cut.indexOf(findsubjectEnd);
+                if(!cut.substring(0,1).equals("Д")){
+                    subject += ", " + cut.substring(0,index2);
+                    dvi=getString(R.string.BVI);
+                }
+                else{
+                    dvi = getString(R.string.DVI);
+
+                }
+            }catch(Exception e) {
+                subject="";
+                dvi="";
+            }
 
 
             title = html.title();
             //.....................
+            UniversityData universityData = new UniversityData(title, title, pointf, pointp, subject,city, price, title,path, 3,dvi);
 
-            return(buf.toString());
+            return(universityData);
         }
         finally {
             if (reader != null) {

@@ -2,9 +2,10 @@ package com.example.touniversity2;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "UniversityDB")
+@Entity(tableName = "University")
 public class University {
     @ColumnInfo(name = "university_id")
     @PrimaryKey(autoGenerate = true)
@@ -35,6 +36,10 @@ public class University {
     int subject_value;
     @ColumnInfo(name = "dvi")
     String dvi;
+    @Ignore
+    public University(){
+
+    }
 
     public University(String called_university, String called_program, int point_tofree, int point_topaid, String subjectonEGE, String learning_form, String city, int price, String image, String link, String desclink, int subject_value, String dvi) {
         this.id = 0;

@@ -16,7 +16,10 @@ public interface UniversityDAO {
     public void updateUniversity(University university);
     @Delete
     public void deleteUniversity(University university);
-    @Query("select * from UniversityDB where called_program==:calledprogram")
-    public List<University> getUniversity(String calledprogram);
 
+    @Query("select * from University")
+    public List<University> getAllUniversity();
+
+    @Query("select * from University where university_id==:university_id")
+    public University getUniversity(int university_id);
 }

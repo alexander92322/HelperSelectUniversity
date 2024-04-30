@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 
 import android.widget.ProgressBar;
@@ -22,7 +23,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class MainActivity extends AppCompatActivity {
 int progress = 0;
 ProgressBar pb;
-
+Handler handler = new Handler(Looper.getMainLooper());
     static final int time_streams = 4000;
 
     @Override
@@ -36,7 +37,7 @@ ProgressBar pb;
         pb.setMax(95);
         setProgressValue(progress);
 
-        new Handler().postDelayed(new Runnable() {
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent(MainActivity.this, HomeScreen.class);
