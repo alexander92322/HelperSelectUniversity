@@ -221,14 +221,19 @@ private static String educational_place = "";
             };
             universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
                     "University").addCallback(myCallback).build();
-            University university = new University("ADASS","asdasd",99,99,"fgsd","d","g",989, "h", "j","k",3,"l");
-            addback(university);
+            //University university = new University("ADASS","asdasd",99,99,"fgsd","d","g",989, "h", "j",3,"l");
+
 
             new Thread(new Runnable() {
                 public void run() {
 
                     try{
-                        content = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/201");
+                       // content = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/201");
+                        addback(getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/201"));
+//                        addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/85"));
+//                        addback(getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/302"));
+//                        addback(getContent("https://vuzopedia.ru/vuz/3463/programs/bakispec/933"));
+//                        addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/90"));
                         //content = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/302");
 
                     }
@@ -245,12 +250,15 @@ private static String educational_place = "";
     }
 
 
-    private UniversityData getContent(String path) throws  IOException {
+    private University getContent(String path) throws  IOException {
         String title;
+        String called_program="";
+        String called_university="";
+        int subject_value;
         int pointf;
         int pointp;
         String subject=" ";
-        boolean paid;
+        String paid;
         String city;
         int price;
         String dvi="";
@@ -266,6 +274,7 @@ private static String educational_place = "";
         String findsubject2 = "2. ";
         String findsubject3 = "3. ";
         String findprice = "Стоимость: <strong>от ";
+        String in= " в ";
 
         String findsubjectEnd = " - ";
         String cut = "";
@@ -315,17 +324,26 @@ private static String educational_place = "";
                 index=0;
                 index = title.indexOf(findUniversityCalled);
                 title = title.substring(0,index);
+                called_program=title.substring(0, title.indexOf(in));
             }catch(Exception e) {
                 title = html.title();
+                called_program="";
+            }
+
+            try{
+                index=0;
+                called_university = title.substring(title.indexOf(in)+3,title.length());
+            }catch(Exception e) {
+                called_university = "";
             }
 
 
 
             if(pointf==0){
-                paid=true;
+                paid="Платное";
             }
             else{
-                paid=false;
+                paid="Платное/Бесплатное";
             }
 
             try {
@@ -375,13 +393,14 @@ private static String educational_place = "";
                 subject="";
                 dvi="";
             }
+            subject_value = subject.length() - subject.replace(String.valueOf(","), "").length()+1;
 
 
             title = html.title();
             //.....................
-            UniversityData universityData = new UniversityData(title, title, pointf, pointp, subject,city, price, title,path, 3,dvi);
+            University university = new University(called_university, called_program, pointf, pointp, subject,paid, city, price,path, subject_value,dvi);
 
-            return(universityData);
+            return(university);
         }
         finally {
             if (reader != null) {

@@ -26,12 +26,8 @@ public class University {
     String city;
     @ColumnInfo(name = "price")
     int price;
-    @ColumnInfo(name = "image")
-    String image;
     @ColumnInfo(name = "link")
     String link;
-    @ColumnInfo(name = "desclink")
-    String desclink;
     @ColumnInfo(name = "subject_value")
     int subject_value;
     @ColumnInfo(name = "dvi")
@@ -41,7 +37,7 @@ public class University {
 
     }
 
-    public University(String called_university, String called_program, int point_tofree, int point_topaid, String subjectonEGE, String learning_form, String city, int price, String image, String link, String desclink, int subject_value, String dvi) {
+    public University(String called_university, String called_program, int point_tofree, int point_topaid, String subjectonEGE, String learning_form, String city, int price, String link, int subject_value, String dvi) {
         this.id = 0;
         this.called_university = called_university;
         this.called_program = called_program;
@@ -51,9 +47,7 @@ public class University {
         this.learning_form = learning_form;
         this.city = city;
         this.price = price;
-        this.image = image;
         this.link = link;
-        this.desclink = desclink;
         this.subject_value = subject_value;
         this.dvi = dvi;
     }
@@ -126,28 +120,12 @@ public class University {
         this.price = price;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public String getLink() {
         return link;
     }
 
     public void setLink(String link) {
         this.link = link;
-    }
-
-    public String getDesclink() {
-        return desclink;
-    }
-
-    public void setDesclink(String desclink) {
-        this.desclink = desclink;
     }
 
     public int getSubject_value() {
