@@ -22,4 +22,6 @@ public interface UniversityDAO {
 
     @Query("select * from University where university_id==:university_id")
     public University getUniversity(int university_id);
+    @Query("select count(*) from University")
+    public int getTableSize();
 }

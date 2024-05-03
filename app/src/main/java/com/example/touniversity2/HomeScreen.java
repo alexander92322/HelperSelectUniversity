@@ -11,8 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -25,75 +24,80 @@ import org.jsoup.nodes.Document;
 
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+
+import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.security.auth.Subject;
+
 
 public class HomeScreen extends AppCompatActivity {
+    University university = new University("","",0,0,"","","",0,"",0,"");
+    UniversityData content;
     UniversityDatabase universityDatabase;
-
     private static boolean data_correct=false;
     private static final int min_point=156;
     private static int point=0;
     private static int value_subject=0;
-
-
-    UniversityData content;
-
     private static boolean top=false;
 private static boolean paid=false;
 private static String educational_place = "";
     ArrayList<String> subject = new ArrayList<>();
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-
-
-    }
-
-    public void addback(University university){
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-
-        executorService.execute(new Runnable() {
+        RoomDatabase.Callback myCallback =new RoomDatabase.Callback() {
+            @Override
+            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                super.onCreate(db);
+            }
+            @Override
+            public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                super.onOpen(db);
+            }
+        };
+        universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
+                "University").addCallback(myCallback).build();
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                universityDatabase.getUniversityDAO().addUniversity(university);
-
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(HomeScreen.this, "Added to DB", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                int count=universityDatabase.getUniversityDAO().getTableSize();
+                if(count<=2){
+                    FirstTest.fs=true;
+                }
+                else if(count>=3){
+                    FirstTest.fs=false;
+                }
+                addback(university);
             }
         });
+        thread.setPriority(Thread.MAX_PRIORITY);
+        thread.start();
 
     }
-
     @Override
     protected void onStart() {
         super.onStart();
         subject.removeAll(subject);
-        value_subject=0;
-        int point=0;
-        top=false;
-        paid=false;
+        value_subject = 0;
+        int point = 0;
+        top = false;
+        paid = false;
         educational_place = "";
+
     }
 
     public void ClickonRetrait(View view){
@@ -208,48 +212,63 @@ private static String educational_place = "";
             AbiturientData.setEducational_place(educational_place);
             AbiturientData.setSubject(subject);
             AbiturientData.setValue_subject(value_subject);
-            RoomDatabase.Callback myCallback =new RoomDatabase.Callback() {
-                @Override
-                public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                    super.onCreate(db);
-                }
-
-                @Override
-                public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                    super.onOpen(db);
-                }
-            };
-            universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
-                    "University").addCallback(myCallback).build();
-            //University university = new University("ADASS","asdasd",99,99,"fgsd","d","g",989, "h", "j",3,"l");
-
-
-            new Thread(new Runnable() {
-                public void run() {
-
-                    try{
-                       // content = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/201");
-                        addback(getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/201"));
-//                        addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/85"));
-//                        addback(getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/302"));
-//                        addback(getContent("https://vuzopedia.ru/vuz/3463/programs/bakispec/933"));
-//                        addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/90"));
-                        //content = getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/302");
-
-                    }
-                    catch (IOException ex){
-                        content=null;
-                    }
-                }
-            }).start();
             Intent intent = new Intent(this,SplashSelection.class);
             startActivity(intent);
             this.finish();
+
+            if (FirstTest.fs) {
+                RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
+                    @Override
+                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                        super.onCreate(db);
+                    }
+
+                    @Override
+                    public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                        super.onOpen(db);
+                    }
+                };
+                universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
+                        "University").addCallback(myCallback).build();
+                new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            addback(getContent("https://vuzopedia.ru/vuz/1848/programs/bakispec/87"));
+                            addback(getContent("https://vuzopedia.ru/vuz/1189/programs/bakispec/2272"));
+                            addback(getContent("https://vuzopedia.ru/vuz/1848/programs/bakispec/5"));
+                            addback(getContent("https://vuzopedia.ru/vuz/249/programs/bakispec/821"));
+                            addback(getContent("https://vuzopedia.ru/vuz/1612/programs/bakispec/9"));
+                            addback(getContent("https://vuzopedia.ru/vuz/1567/programs/bakispec/1670"));
+                            addback(getContent("https://vuzopedia.ru/vuz/1612/programs/bakispec/9"));
+                            addback(getContent("https://vuzopedia.ru/vuz/1567/programs/bakispec/1666"));
+                            addback(getContent("https://vuzopedia.ru/vuz/4950/programs/bakispec/216"));
+                            addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/994"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/139"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/2455"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/199"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/90"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/1380/programs/bakispec/43"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/5167/programs/bakispec/453"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/5167/programs/bakispec/932"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/1/programs/bakispec/731"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/1/programs/bakispec/44"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/1/programs/bakispec/10"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/4/programs/bakispec/94"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/4/programs/bakispec/833"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/1230/programs/bakispec/91"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/1230/programs/bakispec/142"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/4312/programs/bakispec/1282"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/4312/programs/bakispec/1109"));
+
+                        } catch (IOException ex) {
+                            content = null;
+                        }
+                    }
+                }).start();
+            }
+
         }
-
     }
-
-
     private University getContent(String path) throws  IOException {
         String title;
         String called_program="";
@@ -414,6 +433,19 @@ private static String educational_place = "";
             }
         }
     }
+    public void addback(University university){
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                universityDatabase.getUniversityDAO().addUniversity(university);
+            }
+        });
+
+    }
+
+
+
 
 
 }
