@@ -33,6 +33,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import java.util.Scanner;
@@ -43,7 +44,6 @@ import javax.net.ssl.HttpsURLConnection;
 
 
 public class HomeScreen extends AppCompatActivity {
-    University university = new University("","",0,0,"","","",0,"",0,"");
     UniversityData content;
     UniversityDatabase universityDatabase;
     private static boolean data_correct=false;
@@ -178,6 +178,7 @@ private static String educational_place = "";
     public void ClickonNext(View view){
         checkCorrectData();
         if(data_correct){
+            subject.add("Русский язык");
             Collections.sort(subject);
             AbiturientData.setPoint(point);
             AbiturientData.setPaid(paid);
@@ -240,6 +241,24 @@ private static String educational_place = "";
             }
 
         }
+    public String sortSubjects(String input) {
+        // Разделить строку по запятым и удалить пробелы в начале и конце каждого предмета
+        String[] subjects = input.split(",\\s*");
+
+        // Отсортировать массив предметов по алфавиту
+        Arrays.sort(subjects);
+        StringBuilder sortedSubjects = new StringBuilder();
+        for (int i = 0; i < subjects.length; i++) {
+            sortedSubjects.append(subjects[i]);
+            // Добавить запятую после каждого предмета, кроме последнего
+            if (i < subjects.length - 1) {
+                sortedSubjects.append(", ");
+            }
+        }
+
+        return sortedSubjects.toString();
+    }
+
     private University getContent(String path) throws  IOException {
         String title;
         String called_program="";
@@ -248,6 +267,7 @@ private static String educational_place = "";
         int pointf;
         int pointp;
         String subject=" ";
+        String sortedsubject;
         String paid;
         String city;
         int price;
@@ -384,11 +404,12 @@ private static String educational_place = "";
                 dvi="";
             }
             subject_value = subject.length() - subject.replace(String.valueOf(","), "").length()+1;
+            sortedsubject=sortSubjects(subject);
 
 
             title = html.title();
             //.....................
-            University university = new University(called_university, called_program, pointf, pointp, subject,paid, city, price,path, subject_value,dvi);
+            University university = new University(called_university, called_program, pointf, pointp, sortedsubject,paid, city, price,path, subject_value,dvi);
 
             return(university);
         }

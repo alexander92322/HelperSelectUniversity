@@ -143,4 +143,22 @@ public class University {
     public void setDvi(String dvi) {
         this.dvi = dvi;
     }
+
+    @Override
+    public String toString() {
+        return "University{" +
+                "id=" + id +
+                ", called_university='" + called_university + '\'' +
+                ", called_program='" + called_program + '\'' +
+                ", point_tofree=" + point_tofree +
+                ", point_topaid=" + point_topaid +
+                ", subjectonEGE='" + subjectonEGE + '\'' +
+                ", learning_form='" + learning_form + '\'' +
+                ", city='" + city + '\'' +
+                ", price=" + price +
+                ", link='" + link + '\'' +
+                ", subject_value=" + subject_value +
+                ", dvi='" + dvi + '\'' +
+                '}';
+    }
 }
