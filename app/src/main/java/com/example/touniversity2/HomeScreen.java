@@ -59,33 +59,6 @@ private static String educational_place = "";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-        RoomDatabase.Callback myCallback =new RoomDatabase.Callback() {
-            @Override
-            public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                super.onCreate(db);
-            }
-            @Override
-            public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                super.onOpen(db);
-            }
-        };
-        universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
-                "University").addCallback(myCallback).build();
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int count=universityDatabase.getUniversityDAO().getTableSize();
-                if(count<=2){
-                    FirstTest.fs=true;
-                }
-                else if(count>=3){
-                    FirstTest.fs=false;
-                }
-                addback(university);
-            }
-        });
-        thread.setPriority(Thread.MAX_PRIORITY);
-        thread.start();
 
     }
     @Override
@@ -216,7 +189,6 @@ private static String educational_place = "";
             startActivity(intent);
             this.finish();
 
-            if (FirstTest.fs) {
                 RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
                     @Override
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -234,15 +206,15 @@ private static String educational_place = "";
                     public void run() {
                         try {
                             addback(getContent("https://vuzopedia.ru/vuz/1848/programs/bakispec/87"));
-                            addback(getContent("https://vuzopedia.ru/vuz/1189/programs/bakispec/2272"));
-                            addback(getContent("https://vuzopedia.ru/vuz/1848/programs/bakispec/5"));
-                            addback(getContent("https://vuzopedia.ru/vuz/249/programs/bakispec/821"));
-                            addback(getContent("https://vuzopedia.ru/vuz/1612/programs/bakispec/9"));
-                            addback(getContent("https://vuzopedia.ru/vuz/1567/programs/bakispec/1670"));
-                            addback(getContent("https://vuzopedia.ru/vuz/1612/programs/bakispec/9"));
+                            addback(getContent("https://vuzopedia.ru/vuz/1848/programs/bakispec/87"));
+                            addback(getContent("https://vuzopedia.ru/vuz/1848/programs/bakispec/87"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/249/programs/bakispec/821"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/1612/programs/bakispec/9"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/1567/programs/bakispec/1670"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/1612/programs/bakispec/9"));
                             addback(getContent("https://vuzopedia.ru/vuz/1567/programs/bakispec/1666"));
-                            addback(getContent("https://vuzopedia.ru/vuz/4950/programs/bakispec/216"));
-                            addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/994"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/4950/programs/bakispec/216"));
+//                            addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/994"));
 //                            addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/139"));
 //                            addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/2455"));
 //                            addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/199"));
@@ -268,7 +240,6 @@ private static String educational_place = "";
             }
 
         }
-    }
     private University getContent(String path) throws  IOException {
         String title;
         String called_program="";

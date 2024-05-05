@@ -24,4 +24,6 @@ public interface UniversityDAO {
     public University getUniversity(int university_id);
     @Query("select count(*) from University")
     public int getTableSize();
+    @Query("delete from University where price==0 and subject_value==1")
+    public void deleteItems();
 }
