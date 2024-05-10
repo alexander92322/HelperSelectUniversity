@@ -129,23 +129,15 @@ private static String educational_place = "";
 
 
         //subject
-        if(checkBox_math.isChecked() && checkBox_math_base.isChecked() && data_correct)
-        {
-            Toast.makeText(this, R.string.two_equals_subject, Toast.LENGTH_LONG).show();
-            data_correct=false;
-        }
-        if(!checkBox_math.isChecked() && !checkBox_math_base.isChecked() && data_correct) {
+        if(!checkBox_math.isChecked() && data_correct) {
             Toast.makeText(this, R.string.min_one_math, Toast.LENGTH_LONG).show();
             data_correct=false;
         }
-        else if((value_subject!=3 && value_subject!=2) && data_correct && !checkBox_math_base.isChecked()) {
+        else if((value_subject!=3 && value_subject!=2 && value_subject!=4) && data_correct) {
             Toast.makeText(this, R.string.many_subjects, Toast.LENGTH_LONG).show();
             data_correct = false;
         }
-        else if (checkBox_math_base.isChecked() && !(value_subject==4 || value_subject==3) && data_correct){
-            Toast.makeText(this, R.string.mathbase_checked, Toast.LENGTH_LONG).show();
-            data_correct=false;
-        }
+
         //top
         if(radioButton_top.isChecked()){
             top=true;
@@ -206,6 +198,28 @@ private static String educational_place = "";
                 new Thread(new Runnable() {
                     public void run() {
                         try {
+                            University MGU1 = new University("МГУ", "Системное программирование и компьютерные науки", 405, 300, "Информатика, Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 409610,"https://vuzopedia.ru/vuz/1/programs/bakispec/62",  4, "Математика");
+                            University MGU2 = new University("МГУ", "Прикладная математика и физика", 275, 126, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 435970, "https://vuzopedia.ru/vuz/1/napr/93", 4, "Физика");
+                            University MGTU1 = new University("МГТУ", "Бизнес-информатика", 278, 241, "Математика (профиль), Русский язык, Обществознание", "Платное/Бесплатное" , "Москва",324143 , "https://vuzopedia.ru/vuz/4/programs/bakispec/603", 3, "Без вступительных испытаний");
+                            University MGTU2 = new University("МГТУ", "Бизнес-информатика", 278, 241, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное" , "Москва",324143 , "https://vuzopedia.ru/vuz/4/programs/bakispec/603", 3, "Без вступительных испытаний");
+
+
+                            University MFTI1 = new University("МФТИ", "Системный анализ и управление", 295, 280, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное", "Москва", 504000, "https://vuzopedia.ru/vuz/591/programs/bakispec/130",  3, "Без вступительных испытаний");
+                            University MFTI2 = new University("МФТИ", "Системный анализ и управление", 295, 280, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 504000, "https://vuzopedia.ru/vuz/591/programs/bakispec/130",  3, "Без вступительных испытаний");
+
+                            University NGU1 = new University("НГУ", "Организационная психология", 249, 177, "Биология, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Новосибирск", 125000, "https://vuzopedia.ru/vuz/1612/programs/bakispec/561", 4, "Без вступительных испытаний");
+
+
+                            addback(MGU1);
+                            addback(MGU2);
+                            addback(MGTU1);
+                            addback(MGTU2);
+
+                            addback(MFTI1);
+                            addback(MFTI2);
+                            addback(NGU1);
+
+
                             addback(getContent("https://vuzopedia.ru/vuz/1848/programs/bakispec/87"));
                             addback(getContent("https://vuzopedia.ru/vuz/1848/programs/bakispec/87"));
                             addback(getContent("https://vuzopedia.ru/vuz/1848/programs/bakispec/87"));

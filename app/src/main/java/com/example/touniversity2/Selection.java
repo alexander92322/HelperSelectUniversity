@@ -115,6 +115,7 @@ public class Selection extends AppCompatActivity {
         new Thread(new Runnable() {
             public void run() {
               universityDatabase.getUniversityDAO().deleteItems();
+              universityDatabase.getUniversityDAO().deletedublicate();
             }
         }).start();
     }

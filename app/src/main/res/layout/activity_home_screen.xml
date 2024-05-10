@@ -167,7 +167,7 @@
             android:layout_height="wrap_content"
             android:checked="false"
             android:onClick="onCheckboxClicked"
-            android:text="@string/math_base"
+            android:text="@string/obschestvo"
             android:textColor="@color/black"
             android:visibility="visible" />
         <CheckBox
