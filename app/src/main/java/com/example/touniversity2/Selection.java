@@ -2,6 +2,9 @@ package com.example.touniversity2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
@@ -12,6 +15,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.touniversity2.databinding.ActivityMainBinding;
+import com.example.touniversity2.databinding.ActivitySelectionBinding;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,45 +35,41 @@ public class Selection extends AppCompatActivity {
     private static String educational_place = "";
     private static int value_subject=0;
     TextView textView;
-    private int university_id;
+    private int sch;
     ArrayList<String> subject = new ArrayList<String>();
     String subjects;
+    private ActivitySelectionBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selection);
+        binding = ActivitySelectionBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         getAbiturientData();
-        Button bt = findViewById(R.id.button2);
         textView = findViewById(R.id.textView);
-//        bt.setText(AbiturientData.getPoint());
-        bt.setText(point_EGE+ " " + top+ " " + paid +" "+ educational_place + " " + value_subject+ " "+ subject);
+//        bt.setText(point_EGE+ " " + top+ " " + paid +" "+ educational_place + " " + value_subject+ " "+ subject);
         deleteUncorrectData();
-        //subjects.replace("[", "").replace("]", "");
          subjects = String.valueOf(subject);
 
         subjects=subjects.replace("[","");
         subjects=subjects.replace("]","");
         subjects=subjects.replace("]","");
-//        if(paid){
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-
-//                }
-//            }).start();
-//        }
-//        else if (!paid && (educational_place.equals("Москва") || educational_place.equals("Санкт-Петербург"))){
-//            getList();
-//        }
-//        else if(paid && (!educational_place.equals("Москва") || !educational_place.equals("Санкт-Петербург"))){
-//            getPaidListRegion();
-//        }
-//        else{
-//            getListRegion();
-//        }
-
+    }
+    public void onClickBack(View view){
+        Intent intent = new Intent(Selection.this, HomeScreen.class);
+        startActivity(intent);
+    }
+    public void setDataToAdapter(){
+        List<University> items=new ArrayList<>();
+        items=universityList;
+        UniversityAdapter adapter = new UniversityAdapter(items);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        recyclerView.setAdapter(adapter);
     }
     public void BtClick(View view){
+        sch++;
+        Button btn = findViewById(R.id.button2);
         RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
             @Override
             public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -97,6 +100,11 @@ public class Selection extends AppCompatActivity {
 
 
         textView.setText(universityList.toString()+"");
+       setDataToAdapter();
+       if(sch==2){btn.setVisibility(View.INVISIBLE);}
+       if(sch==2 && universityList.isEmpty()){
+           Toast.makeText(this, "К сожалению, по вашим фильтрам нет ВУЗов", Toast.LENGTH_SHORT).show();
+       }
     }
     public void deleteUncorrectData(){
         RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
@@ -118,96 +126,6 @@ public class Selection extends AppCompatActivity {
               universityDatabase.getUniversityDAO().deletedublicate();
             }
         }).start();
-    }
-
-    public void getPaidList(){
-        RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
-            @Override
-            public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                super.onCreate(db);
-            }
-
-            @Override
-            public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                super.onOpen(db);
-            }
-        };
-        universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
-                "University").addCallback(myCallback).build();
-        new Thread(new Runnable() {
-            public void run() {
-                //universityList= universityDatabase.getUniversityDAO().chooseUniversityPaid(university_id, point_EGE, String.valueOf(subject), educational_place);
-               // universityList= universityDatabase.getUniversityDAO().chooseUniversityPaid(point_EGE);
-                universityList.add(universityDatabase.getUniversityDAO().getUniversity(2));
-            }
-        }).start();
-
-    }
-    public void getList(){
-        RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
-            @Override
-            public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                super.onCreate(db);
-            }
-
-            @Override
-            public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                super.onOpen(db);
-            }
-        };
-        universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
-                "University").addCallback(myCallback).build();
-        new Thread(new Runnable() {
-            public void run() {
-                universityList= universityDatabase.getUniversityDAO().chooseUniversity(university_id, String.valueOf(subject), educational_place);
-            }
-        }).start();
-
-
-    }
-    public void getPaidListRegion(){
-        RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
-            @Override
-            public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                super.onCreate(db);
-            }
-
-            @Override
-            public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                super.onOpen(db);
-            }
-        };
-        universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
-                "University").addCallback(myCallback).build();
-        new Thread(new Runnable() {
-            public void run() {
-                //  universityList= universityDatabase.getUniversityDAO().chooseUniversityPaidRegion(university_id, point_EGE, String.valueOf(subject));
-            }
-        }).start();
-
-
-    }
-    public void getListRegion(){
-        RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
-            @Override
-            public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                super.onCreate(db);
-            }
-
-            @Override
-            public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                super.onOpen(db);
-            }
-        };
-        universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
-                "University").addCallback(myCallback).build();
-        new Thread(new Runnable() {
-            public void run() {
-               // universityList= universityDatabase.getUniversityDAO().chooseUniversityRegion(university_id, point_EGE, String.valueOf(subject));
-            }
-        }).start();
-
-
     }
 
     public void getAbiturientData(){
