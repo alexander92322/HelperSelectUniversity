@@ -39,6 +39,7 @@
     <string name="Russian">Русский язык</string>
     <string name="paid">Платное</string>
     <string name="paidandfree">Платное/Бесплатное</string>
+    <string name="search">Найти</string>
 
 
     <string-array name="spinner_value">

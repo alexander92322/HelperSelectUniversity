@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,12 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.UniversityAdapterViewHolder> {
+public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.UniversityAdapterViewHolder> implements Filterable {
     private List<University> universityList = new ArrayList<>();
+    private List<University> universityListFull; // Полный список университетов для поиска
     private OnUniversityClickListener onUniversityClickListener;
 
     public UniversityAdapter(List<University> items) {
         universityList=items;
+        universityListFull = new ArrayList<>(items); // Создаем копию списка для поиска
     }
 
     public void setOnUniversityClickListener(OnUniversityClickListener onUniversityClickListener) {
@@ -58,6 +62,7 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
                 break;
             case "МИФИ":
                 holder.binding.image.setImageResource(R.drawable.mifi);
+                break;
             case "МФТИ":
                 holder.binding.image.setImageResource(R.drawable.mfti);
                 break;
@@ -75,6 +80,7 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
                 break;
             case "СПБГУ":
                 holder.binding.image.setImageResource(R.drawable.spbgu);
+                break;
             case "ВШЭ":
                 holder.binding.image.setImageResource(R.drawable.vshe);
                 break;
@@ -119,4 +125,41 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
             this.binding=binding;
         }
     }
+    // Реализация интерфейса Filterable
+    @Override
+    public Filter getFilter() {
+        return universityFilter;
+    }
+
+    private Filter universityFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<University> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(universityListFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (University item : universityListFull) {
+                    // Проверяем условие, по которому будет происходить фильтрация
+                    // если название университета содержит введенный текст
+                    if (item.getCalled_university().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            universityList.clear();
+            universityList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }

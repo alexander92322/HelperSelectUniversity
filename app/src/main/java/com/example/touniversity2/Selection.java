@@ -14,6 +14,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,8 @@ public class Selection extends AppCompatActivity {
     ArrayList<String> subject = new ArrayList<String>();
     String subjects;
     private ActivitySelectionBinding binding;
+    private UniversityAdapter adapter; // Переменная класса для хранения адаптера
+    private List<University> universityListAdapter; // Список университетов
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,7 @@ public class Selection extends AppCompatActivity {
         binding = ActivitySelectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getAbiturientData();
-        textView = findViewById(R.id.textView);
+        //textView = findViewById(R.id.textView);
 //        bt.setText(point_EGE+ " " + top+ " " + paid +" "+ educational_place + " " + value_subject+ " "+ subject);
         deleteUncorrectData();
          subjects = String.valueOf(subject);
@@ -60,9 +63,12 @@ public class Selection extends AppCompatActivity {
         startActivity(intent);
     }
     public void setDataToAdapter(){
-        List<University> items=new ArrayList<>();
-        items=universityList;
-        UniversityAdapter adapter = new UniversityAdapter(items);
+        universityListAdapter = universityList; // Загрузите данные университетов
+
+        // Создание адаптера один раз и сохранение его в переменной класса
+        adapter = new UniversityAdapter(universityListAdapter);
+
+        // Установка адаптера в RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(adapter);
@@ -135,6 +141,10 @@ public class Selection extends AppCompatActivity {
         educational_place = AbiturientData.getEducational_place();
         value_subject = AbiturientData.getValue_subject();
         subject = AbiturientData.getSubject();
+    }
+    public void clickonSearch(View view){
+        EditText editText = findViewById(R.id.search);
+        adapter.getFilter().filter(editText.getText());
     }
 
 }
