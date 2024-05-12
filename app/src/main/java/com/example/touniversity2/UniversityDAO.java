@@ -36,6 +36,6 @@ public interface UniversityDAO {
     public List<University> chooseUniversityPaidRegion(int point, String subjectonEGE);
     @Query("select * from University where point_tofree<=:point and subjectonEGE==:subjectonEGE")
     public List<University> chooseUniversityRegion(int point, String subjectonEGE);
-    @Query("delete from University where university_id not in (select min(university_id) from University group by called_program)")
+    @Query("delete from University where university_id not in (select min(university_id) from University group by subjectonEGE,called_program)")
     public void deletedublicate();
 }

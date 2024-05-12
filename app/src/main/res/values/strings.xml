@@ -36,6 +36,10 @@
     <string name="mathbase_checked">Необходимо выбрать 3 или 4 предмета(+русский)</string>
     <string name="BVI">Без вступительных испытаний</string>
     <string name="DVI">Есть вступительные испытания</string>
+    <string name="Russian">Русский язык</string>
+    <string name="paid">Платное</string>
+    <string name="paidandfree">Платное/Бесплатное</string>
+
 
     <string-array name="spinner_value">
         <item>Москва</item>

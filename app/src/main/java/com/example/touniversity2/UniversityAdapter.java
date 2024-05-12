@@ -1,6 +1,8 @@
 package com.example.touniversity2;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,10 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
         holder.binding.title.setText("Университет: "+university.getCalled_university());
         holder.binding.program.setText("Программа:"+'\n'+university.getCalled_program());
         holder.binding.city.setText("Город: "+university.getCity());
+        holder.binding.learningForm.setText("Форма обучения: " + university.getLearning_form());
+        holder.binding.pointf.setText("Баллы на бюджет: " + university.getPoint_tofree());
+        holder.binding.pointp.setText("Баллы на платное: " + university.getPoint_topaid());
+        holder.binding.dvi.setText("Внутренние испытания: " + university.getDvi());
         switch (university.getCalled_university()) {
             case "МГУ":
                 holder.binding.image.setImageResource(R.drawable.mgu);
@@ -87,6 +93,15 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
                 if (onUniversityClickListener != null) {
                     onUniversityClickListener.onUniversityClick(university);
                 }
+            }
+        });
+        holder.binding.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Создаем интент для открытия ссылки в браузере
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(university.getLink())); // Устанавливаем URL из объекта ВУЗа
+                v.getContext().startActivity(intent); // Запускаем интент
             }
         });
     }

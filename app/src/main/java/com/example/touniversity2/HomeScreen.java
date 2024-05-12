@@ -44,7 +44,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 
 public class HomeScreen extends AppCompatActivity {
-    UniversityData content;
+    University content;
     UniversityDatabase universityDatabase;
     private static boolean data_correct=false;
     private static final int min_point=156;
@@ -170,7 +170,7 @@ private static String educational_place = "";
     public void ClickonNext(View view){
         checkCorrectData();
         if(data_correct){
-            subject.add("Русский язык");
+            subject.add(getString(R.string.Russian));
             Collections.sort(subject);
             AbiturientData.setPoint(point);
             AbiturientData.setPaid(paid);
@@ -364,10 +364,10 @@ private static String educational_place = "";
 
 
             if(pointf==0){
-                paid="Платное";
+                paid=getString(R.string.paid);
             }
             else{
-                paid="Платное/Бесплатное";
+                paid=getString(R.string.paidandfree);
             }
 
             try {
