@@ -49,7 +49,6 @@ public class Selection extends AppCompatActivity {
         binding = ActivitySelectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getAbiturientData();
-        //textView = findViewById(R.id.textView);
 //        bt.setText(point_EGE+ " " + top+ " " + paid +" "+ educational_place + " " + value_subject+ " "+ subject);
         deleteUncorrectData();
          subjects = String.valueOf(subject);
@@ -105,7 +104,6 @@ public class Selection extends AppCompatActivity {
 
 
 
-        textView.setText(universityList.toString()+"");
        setDataToAdapter();
        if(sch==2){btn.setVisibility(View.INVISIBLE);}
        if(sch==2 && universityList.isEmpty()){

@@ -27,7 +27,7 @@ public class SplashSelection extends AppCompatActivity {
         button = findViewById(R.id.bt_next);
         ckeckClick();
 
-        emerging_text.setTag("Мы подбираем лучшие ВУЗы для вас. Надеемся, вам понравится!");
+        emerging_text.setTag("Мы подбираем лучшие ВУЗы для Вас. Надеемся, Вам понравится!");
         emerging_text.postDelayed( new Runnable(){
             @Override
             public void run(){
@@ -37,7 +37,7 @@ public class SplashSelection extends AppCompatActivity {
                     emerging_text.setText( text+ text_tag.substring( text.length(), text.length()+1 ) );
                     emerging_text.postDelayed( this, delay_ms );
                 }
-                if(emerging_text.getText().toString().equals("Мы подбираем лучшие ВУЗы для вас. Надеемся, вам понравится!"))
+                if(emerging_text.getText().toString().equals("Мы подбираем лучшие ВУЗы для Вас. Надеемся, Вам понравится!"))
                 {
                     stopq();
                     openSelection++;
