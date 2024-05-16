@@ -62,6 +62,7 @@ public class Selection extends AppCompatActivity {
     public void onClickBack(View view){
         Intent intent = new Intent(Selection.this, HomeScreen.class);
         startActivity(intent);
+        finish();
     }
     public void setDataToAdapter(){
         universityListAdapter = universityList; // Загрузите данные университетов

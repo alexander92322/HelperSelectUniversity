@@ -62,13 +62,10 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
             case "МГТУ":
                 holder.binding.image.setImageResource(R.drawable.mgtu);
                 break;
-            case "МИФИ":
-                holder.binding.image.setImageResource(R.drawable.mifi);
-                break;
             case "МФТИ":
                 holder.binding.image.setImageResource(R.drawable.mfti);
                 break;
-            case "ИТМО":
+            case "Университет ИТМО":
                 holder.binding.image.setImageResource(R.drawable.itmo);
                 break;
             case "НГУ":
@@ -83,7 +80,7 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
             case "СПБГУ":
                 holder.binding.image.setImageResource(R.drawable.spbgu);
                 break;
-            case "ВШЭ":
+            case "НИУ ВШЭ":
                 holder.binding.image.setImageResource(R.drawable.vshe);
                 break;
             case "ТГУ":

@@ -98,12 +98,11 @@ private static String educational_place = "";
     }
 
     public void ClickonWithoutFiltres(View view){
-        subject.removeAll(subject);
-        value_subject=0;
-        int point=0;
-        top=false;
-        paid=false;
-        educational_place = "";
+        AbiturientData.setPoint(0);
+        AbiturientData.setPaid(false);
+        AbiturientData.setTop(false);
+        AbiturientData.setEducational_place("");
+        AbiturientData.setValue_subject(0);
         Intent intent = new Intent(this, Selection.class);
         startActivity(intent);
         this.finish();

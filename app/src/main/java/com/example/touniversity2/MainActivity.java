@@ -106,6 +106,16 @@ Handler handler = new Handler(Looper.getMainLooper());
                     addback(getContent("https://vuzopedia.ru/vuz/1567/programs/bakispec/1666"));
                     addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/108"));
                     addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/2277"));
+                    Thread.sleep(1000);
+                    addback(getContent("https://vuzopedia.ru/vuz/1189/programs/bakispec/46"));
+                    addback(getContent("https://vuzopedia.ru/vuz/725/programs/bakispec/1546"));
+                    addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/81"));
+                    Thread.sleep(1000);
+                    addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/186"));
+                    addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/6122"));
+                    addback(getContent("https://vuzopedia.ru/vuz/2554/programs/bakispec/125"));
+                    addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/85"));
+                    addback(getContent("https://vuzopedia.ru/vuz/1612/programs/bakispec/400"));
 
                     //Thread.sleep(500);
 
@@ -117,26 +127,26 @@ Handler handler = new Handler(Looper.getMainLooper());
                 }
             }
         }).start();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2000);
-                    addback(getContent("https://vuzopedia.ru/vuz/1189/programs/bakispec/46"));
-                    addback(getContent("https://vuzopedia.ru/vuz/725/programs/bakispec/1546"));
-                    addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/81"));
-                    Thread.sleep(2000);
-                    addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/186"));
-                    addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/6122"));
-                    addback(getContent("https://vuzopedia.ru/vuz/2554/programs/bakispec/125"));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(1000);
+//                    addback(getContent("https://vuzopedia.ru/vuz/1189/programs/bakispec/46"));
+//                    addback(getContent("https://vuzopedia.ru/vuz/725/programs/bakispec/1546"));
+//                    addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/81"));
+//                    Thread.sleep(1000);
+//                    addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/186"));
+//                    addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/6122"));
+//                    addback(getContent("https://vuzopedia.ru/vuz/2554/programs/bakispec/125"));
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//            }
+//        }).start();
     }
 
     @Override
@@ -238,7 +248,7 @@ Handler handler = new Handler(Looper.getMainLooper());
             URL url=new URL(path);
             connection =(HttpsURLConnection)url.openConnection();
             connection = (HttpsURLConnection) url.openConnection();
-            connection.setRequestProperty("User-Agent", "'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'");
+            connection.setRequestProperty("User-Agent", "'User-Agent': Mozilla/5.0 (Android 14; Mobile; rv:68.0) Gecko/68.0 Firefox/126.0");
             connection.setRequestMethod("GET");
             connection.setReadTimeout(1000);
             connection.connect();
