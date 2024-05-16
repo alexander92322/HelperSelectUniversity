@@ -56,6 +56,8 @@ public class Selection extends AppCompatActivity {
         subjects=subjects.replace("[","");
         subjects=subjects.replace("]","");
         subjects=subjects.replace("]","");
+
+
     }
     public void onClickBack(View view){
         Intent intent = new Intent(Selection.this, HomeScreen.class);
@@ -91,14 +93,23 @@ public class Selection extends AppCompatActivity {
                 "University").addCallback(myCallback).build();
         new Thread(new Runnable() {
             public void run() {
-                if(paid && (educational_place.equals("Москва")||educational_place.equals("Санкт-Петербург"))){
-                universityList=(universityDatabase.getUniversityDAO().chooseUniversityPaid(point_EGE,subjects, educational_place));}
-                if(!paid && (educational_place.equals("Москва")||educational_place.equals("Санкт-Петербург"))){
-                universityList=(universityDatabase.getUniversityDAO().chooseUniversity(point_EGE,subjects, educational_place));}
-                if(paid && !(educational_place.equals("Москва")||educational_place.equals("Санкт-Петербург"))){
-                    universityList=(universityDatabase.getUniversityDAO().chooseUniversityPaidRegion(point_EGE,subjects));}
-                if(!paid && !(educational_place.equals("Москва")||educational_place.equals("Санкт-Петербург"))){
-                    universityList=(universityDatabase.getUniversityDAO().chooseUniversityRegion(point_EGE,subjects));}
+                if(point_EGE==0){
+                    universityList = universityDatabase.getUniversityDAO().getAllUniversity();
+                }
+                else {
+                    if (paid && (educational_place.equals("Москва") || educational_place.equals("Санкт-Петербург"))) {
+                        universityList = (universityDatabase.getUniversityDAO().chooseUniversityPaid(point_EGE, subjects, educational_place));
+                    }
+                    if (!paid && (educational_place.equals("Москва") || educational_place.equals("Санкт-Петербург"))) {
+                        universityList = (universityDatabase.getUniversityDAO().chooseUniversity(point_EGE, subjects, educational_place));
+                    }
+                    if (paid && !(educational_place.equals("Москва") || educational_place.equals("Санкт-Петербург"))) {
+                        universityList = (universityDatabase.getUniversityDAO().chooseUniversityPaidRegion(point_EGE, subjects));
+                    }
+                    if (!paid && !(educational_place.equals("Москва") || educational_place.equals("Санкт-Петербург"))) {
+                        universityList = (universityDatabase.getUniversityDAO().chooseUniversityRegion(point_EGE, subjects));
+                    }
+                }
 
             }
         }).start();

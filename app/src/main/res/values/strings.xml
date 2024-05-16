@@ -11,7 +11,7 @@
     <string name="choose_direction">Выбери, какие предметы сдавал на ЕГЭ:</string>
     <string name="chooseprice">Рассматриваешь платное обучение?</string>
     <string name="bt_next">Подобрать</string>
-    <string name="bt_restart">Перезайти</string>
+    <string name="bt_withoutfilres">Весь список</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="math">Математика (профиль)</string>

@@ -97,15 +97,17 @@ private static String educational_place = "";
 
     }
 
-    public void ClickonRetrait(View view){
+    public void ClickonWithoutFiltres(View view){
         subject.removeAll(subject);
         value_subject=0;
         int point=0;
         top=false;
         paid=false;
         educational_place = "";
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Selection.class);
         startActivity(intent);
+        this.finish();
+
     }
     public void checkCorrectData(){
         data_correct=true;
