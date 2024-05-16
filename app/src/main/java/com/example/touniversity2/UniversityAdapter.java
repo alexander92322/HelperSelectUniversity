@@ -27,6 +27,7 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
         universityList=items;
         notifyDataSetChanged();
         universityListFull = new ArrayList<>(items); // Создаем копию списка для поиска
+        notifyDataSetChanged();
     }
 
     public void setOnUniversityClickListener(OnUniversityClickListener onUniversityClickListener) {

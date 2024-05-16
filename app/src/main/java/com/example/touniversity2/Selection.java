@@ -31,6 +31,7 @@ public class Selection extends AppCompatActivity {
     List<University> universityList = new LinkedList<>();
     private static int point_EGE= 0;
     private static boolean top=false;
+    private boolean call_adapter=false;
     UniversityDatabase universityDatabase;
     private static boolean paid=false;
     private static String educational_place = "";
@@ -50,7 +51,6 @@ public class Selection extends AppCompatActivity {
         setContentView(binding.getRoot());
         getAbiturientData();
 //        bt.setText(point_EGE+ " " + top+ " " + paid +" "+ educational_place + " " + value_subject+ " "+ subject);
-
          subjects = String.valueOf(subject);
 
         subjects=subjects.replace("[","");
@@ -71,6 +71,7 @@ public class Selection extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(adapter);
+        call_adapter=true;
     }
     public void BtClick(View view){
         sch++;
@@ -121,8 +122,9 @@ public class Selection extends AppCompatActivity {
         subject = AbiturientData.getSubject();
     }
     public void clickonSearch(View view){
+        if(!universityList.isEmpty() && call_adapter){
         EditText editText = findViewById(R.id.search);
-        adapter.getFilter().filter(editText.getText());
+        adapter.getFilter().filter(editText.getText());}
     }
 
 }
