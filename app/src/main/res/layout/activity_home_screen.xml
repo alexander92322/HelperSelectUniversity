@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="?attr/selectableItemBackground"
     android:orientation="vertical"
     tools:context=".HomeScreen">
 
@@ -46,7 +46,10 @@
         android:ems="10"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EGE"/>
+        app:layout_constraintTop_toBottomOf="@+id/EGE"
+        android:textColorHint="?attr/colorPrimary"
+        android:textColor="?attr/colorPrimary"
+        />
 
     <!--2 block-->
     <View
@@ -229,13 +232,15 @@
             android:id="@+id/radioButton_yes"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="@string/yes" />
+            android:text="@string/yes"
+            android:textColor="@color/black"/>
         <RadioButton
             android:id="@+id/radioButton_no"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="@string/no"
-            android:checked="true"/>
+            android:checked="true"
+            android:textColor="@color/black"/>
     </RadioGroup>
 
     <!--4 block-->
@@ -274,12 +279,14 @@
             android:id="@+id/radioButton_yes2"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="@string/yes" />
+            android:text="@string/yes"
+            android:textColor="@color/black"/>
         <RadioButton
             android:id="@+id/radioButton_no2"
             android:layout_width="200dp"
             android:layout_height="fill_parent"
             android:text="@string/no"
+            android:textColor="@color/black"
             android:checked="true"/>
     </RadioGroup>
 
@@ -314,44 +321,35 @@
         android:entries="@array/spinner_value"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/educational_place"
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/black"
         />
 
 
 
-    <!--7 block-->
-    <!--    <View-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="4dp"-->
-    <!--        android:background="@drawable/gr"-->
-    <!--        android:layout_marginLeft="4dp"-->
-    <!--        android:layout_marginRight="4dp"-->
-    <!--        android:layout_marginTop="6dp"-->
-    <!--        android:id="@+id/viewdown"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/educational_place"-->
-    <!--        />-->
+<!--    7 block-->
+
 
     <Button
         android:id="@+id/restart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_marginTop="28dp"
         android:backgroundTint="@color/bt_restart"
         android:onClick="ClickonRetrait"
         android:text="@string/bt_restart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/next"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/educational_place" />
+
     <Button
         android:id="@+id/next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:backgroundTint="@color/bt_next"
         android:onClick="ClickonNext"
         android:text="@string/bt_next"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/restart"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
