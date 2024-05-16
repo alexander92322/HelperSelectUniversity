@@ -54,12 +54,36 @@ public class HomeScreen extends AppCompatActivity {
 private static boolean paid=false;
 private static String educational_place = "";
     ArrayList<String> subject = new ArrayList<>();
+    UniversityDatabase universityDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+        deleteUncorrectData();
 
+    }
+    public void deleteUncorrectData(){
+
+        RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
+            @Override
+            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                super.onCreate(db);
+            }
+
+            @Override
+            public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                super.onOpen(db);
+            }
+        };
+        universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
+                "University").addCallback(myCallback).build();
+        new Thread(new Runnable() {
+            public void run() {
+                universityDatabase.getUniversityDAO().deleteItems();
+                universityDatabase.getUniversityDAO().deletedublicate();
+            }
+        }).start();
     }
     @Override
     protected void onStart() {
@@ -178,7 +202,7 @@ private static String educational_place = "";
             AbiturientData.setEducational_place(educational_place);
             AbiturientData.setSubject(subject);
             AbiturientData.setValue_subject(value_subject);
-            Intent intent = new Intent(this,SplashSelection.class);
+            Intent intent = new Intent(this,Selection.class);
             startActivity(intent);
             this.finish();
             }

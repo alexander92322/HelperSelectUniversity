@@ -27,7 +27,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -43,9 +45,8 @@ int progress = 0;
 University content;
 ProgressBar pb;
 Handler handler = new Handler(Looper.getMainLooper());
-    static final int time_streams = 3000;
+    static final int time_streams = 500;
     UniversityDatabase universityDatabase;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +55,9 @@ Handler handler = new Handler(Looper.getMainLooper());
 
         pb = findViewById(R.id.progressBar);
         pb.setProgress(0);
-        pb.setMax(95);
+        pb.setMax(200);
         setProgressValue(progress);
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(MainActivity.this, HomeScreen.class);
-                startActivity(intent);
-                finish();
-            }
-        }, time_streams);
 
 
         RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
@@ -105,13 +98,43 @@ Handler handler = new Handler(Looper.getMainLooper());
                     addback(NGU1);
 
 
+
                     addback(getContent("https://vuzopedia.ru/vuz/1848/programs/bakispec/87"));
+                    addback(getContent("https://vuzopedia.ru/vuz/725/programs/bakispec/164"));
+                    addback(getContent("https://vuzopedia.ru/vuz/1189/programs/bakispec/2272"));
+                    Thread.sleep(1000);
                     addback(getContent("https://vuzopedia.ru/vuz/1567/programs/bakispec/1666"));
+                    addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/108"));
+                    addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/2277"));
+
+                    //Thread.sleep(500);
 
 
                 } catch (IOException ex) {
                     content = null;
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                    addback(getContent("https://vuzopedia.ru/vuz/1189/programs/bakispec/46"));
+                    addback(getContent("https://vuzopedia.ru/vuz/725/programs/bakispec/1546"));
+                    addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/81"));
+                    Thread.sleep(2000);
+                    addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/186"));
+                    addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/6122"));
+                    addback(getContent("https://vuzopedia.ru/vuz/2554/programs/bakispec/125"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
         }).start();
     }
@@ -130,19 +153,26 @@ Handler handler = new Handler(Looper.getMainLooper());
             @Override
             public void run() {
                 try {
-                    Thread.sleep(40);
+                    Thread.sleep(60);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                if(pb.getProgress()>=100)
+                if(pb.getProgress()>=200)
                 {
-
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(MainActivity.this, HomeScreen.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }, time_streams);
                 }
                 else {
                     setProgressValue(progress + 1);
                 }
 
-                if(progress==60)
+                if(progress==150)
                 {
                     TextView textView = findViewById(R.id.small_text);
                     textView.setText(R.string.small_text2);
@@ -207,6 +237,8 @@ Handler handler = new Handler(Looper.getMainLooper());
         try {
             URL url=new URL(path);
             connection =(HttpsURLConnection)url.openConnection();
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setRequestProperty("User-Agent", "'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'");
             connection.setRequestMethod("GET");
             connection.setReadTimeout(1000);
             connection.connect();

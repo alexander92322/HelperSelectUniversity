@@ -50,7 +50,7 @@ public class Selection extends AppCompatActivity {
         setContentView(binding.getRoot());
         getAbiturientData();
 //        bt.setText(point_EGE+ " " + top+ " " + paid +" "+ educational_place + " " + value_subject+ " "+ subject);
-        deleteUncorrectData();
+
          subjects = String.valueOf(subject);
 
         subjects=subjects.replace("[","");
@@ -110,27 +110,7 @@ public class Selection extends AppCompatActivity {
            Toast.makeText(this, "К сожалению, по вашим фильтрам нет ВУЗов", Toast.LENGTH_SHORT).show();
        }
     }
-    public void deleteUncorrectData(){
-        RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
-            @Override
-            public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                super.onCreate(db);
-            }
 
-            @Override
-            public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                super.onOpen(db);
-            }
-        };
-        universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
-                "University").addCallback(myCallback).build();
-        new Thread(new Runnable() {
-            public void run() {
-              universityDatabase.getUniversityDAO().deleteItems();
-              universityDatabase.getUniversityDAO().deletedublicate();
-            }
-        }).start();
-    }
 
     public void getAbiturientData(){
         point_EGE = AbiturientData.getPoint();

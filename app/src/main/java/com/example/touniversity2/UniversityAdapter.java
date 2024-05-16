@@ -25,6 +25,7 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
 
     public UniversityAdapter(List<University> items) {
         universityList=items;
+        notifyDataSetChanged();
         universityListFull = new ArrayList<>(items); // Создаем копию списка для поиска
     }
 
@@ -125,6 +126,7 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
             this.binding=binding;
         }
     }
+
     // Реализация интерфейса Filterable
     @Override
     public Filter getFilter() {

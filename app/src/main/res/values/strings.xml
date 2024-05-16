@@ -23,7 +23,7 @@
     <string name="chemistry">Химия</string>
     <string name="history">История</string>
     <string name="lit">Литература</string>
-    <string name="eng">Английский</string>
+    <string name="eng">Иностранный язык</string>
     <string name="min_point">Ваши баллы ниже возможных проходных</string>
     <string name="max_point">Слишком высокий балл!</string>
     <string name="empty_fields_point">Введите свои баллы!</string>
