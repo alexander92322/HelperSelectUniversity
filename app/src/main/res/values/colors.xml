@@ -17,9 +17,12 @@
 
     <color name="bt_next">#518053</color>
     <color name="bt_restart">#9063E1</color>
+    <color name="bt_news">#EAB972</color>
     <color name="text_splashselection_color">#3C1A1A</color>
     <color name="bgtext_splashselection_color">#E8EDB0</color>
     <color name="hint_homescreen_light">#837A7A</color>
     <color name="hint_homescreen_dark">#9B25AF</color>
     <color name="back_homescreen_light">#565E6E</color>
+    <color name="bt_back">#C32F24</color>
+    <color name="edit_search">#0B0A0A</color>
 </resources>

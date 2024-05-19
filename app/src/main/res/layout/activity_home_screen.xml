@@ -7,7 +7,16 @@
     android:background="?attr/selectableItemBackground"
     android:orientation="vertical"
     tools:context=".HomeScreen">
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <!--1 block-->
     <TextView
         android:id="@+id/title"
@@ -334,7 +343,6 @@
         android:id="@+id/withoutFiltres"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
         android:backgroundTint="@color/bt_restart"
         android:onClick="ClickonWithoutFiltres"
         android:text="@string/bt_withoutfilres"
@@ -351,5 +359,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/withoutFiltres"/>
 
+    <Button
+        android:id="@+id/news"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/bt_news"
+        android:onClick="ClickonNews"
+        android:text="@string/bt_news"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/next"/>
 
+
+    </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

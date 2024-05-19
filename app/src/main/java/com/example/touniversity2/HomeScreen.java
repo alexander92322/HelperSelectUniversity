@@ -211,8 +211,8 @@ private static String educational_place = "";
         }
 
 
-
-
-
-
+    public void ClickonNews(View view) {
+        Intent intent = new Intent(this, NewsScreen.class);
+        startActivity(intent);
+    }
 }

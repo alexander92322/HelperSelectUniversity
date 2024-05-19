@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Selection"
     android:orientation="vertical"
-    android:background="@drawable/university_back"
+    android:background="@color/bgtext_splashselection_color"
     >
 
     <Button
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/search"
-        android:textColorHint="#423F3F"
+        android:textColorHint="@color/edit_search"
         android:textSize="25dp"
         android:id="@+id/search"
         app:layout_constraintTop_toTopOf="parent"
@@ -43,9 +43,9 @@
 
     <ImageView
         android:id="@+id/back"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:background="#F37A71"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@color/bt_back"
         android:onClick="onClickBack"
         android:textSize="22sp"
         android:textStyle="normal"
@@ -55,8 +55,8 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:background="#CD9786"
         android:onClick="clickonSearch"
         app:layout_constraintEnd_toEndOf="parent"

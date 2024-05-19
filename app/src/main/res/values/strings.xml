@@ -40,6 +40,7 @@
     <string name="paid">Платное</string>
     <string name="paidandfree">Платное/Бесплатное</string>
     <string name="search">Найти</string>
+    <string name="bt_news">Новости</string>
 
 
     <string-array name="spinner_value">

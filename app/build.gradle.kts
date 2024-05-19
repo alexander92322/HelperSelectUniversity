@@ -37,9 +37,17 @@ android {
 
 dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.activity:activity:1.9.0")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
+    implementation ("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation ("com.squareup.retrofit2:adapter-rxjava3:2.11.0")
 
+    implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
+    implementation ("io.reactivex.rxjava3:rxjava:3.1.8")
+    implementation("com.squareup.picasso:picasso:2.71828")
     implementation("org.jsoup:jsoup:1.15.2")
+
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
