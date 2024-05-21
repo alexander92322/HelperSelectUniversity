@@ -80,7 +80,7 @@ public static final String APP_PREFERENCES = "mysettings";
     private static boolean data_correct=false;
     private static final int min_point=156;
     private static int point=0;
-    private static int value_subject=1;
+    private static int value_subject=0;
     private static boolean top=false;
 private static boolean paid=false;
 private static String educational_place = "";
@@ -214,7 +214,6 @@ private static String educational_place = "";
     }
 
     public void ClickonWithoutFiltres(View view){
-        savetoSharedPreference();
         AbiturientData.setPoint(0);
         AbiturientData.setPaid(false);
         AbiturientData.setTop(false);
@@ -337,6 +336,8 @@ private static String educational_place = "";
     }
 
     public void ClickonNext(View view){
+        value_subject=0;
+        subject.clear();
         countSubject();
         checkCorrectData();
         if(data_correct){
@@ -354,11 +355,11 @@ private static String educational_place = "";
 
             }
 
+
         }
 
 
     public void ClickonNews(View view) {
-        savetoSharedPreference();
         Intent intent = new Intent(this, NewsScreen.class);
         startActivity(intent);
     }
