@@ -9,6 +9,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -66,7 +68,7 @@ private boolean hasVisited;
 
         SharedPreferences sp = getSharedPreferences(TRACKSTART, Context.MODE_PRIVATE);
         hasVisited = sp.getBoolean("hasVisited", false);
-        if (!hasVisited) {
+        if (!hasVisited && isOnline()) {
             SharedPreferences.Editor e = sp.edit();
             e.putBoolean("hasVisited", true);
             e.commit();
@@ -75,8 +77,51 @@ private boolean hasVisited;
 
         if(hasVisited){
             step=5;
+        }
+        else if(!isOnline()){
+            step=5;
+            RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
+                @Override
+                public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                    super.onCreate(db);
+                }
+
+                @Override
+                public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                    super.onOpen(db);
+                }
+            };
+            universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
+                    "University").addCallback(myCallback).build();
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        University MGU1 = new University("МГУ", "Системное программирование и компьютерные науки", 405, 300, "Информатика, Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 409610, "https://vuzopedia.ru/vuz/1/programs/bakispec/62", 4, "Математика");
+                        University MGU2 = new University("МГУ", "Прикладная математика и физика", 275, 126, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 435970, "https://vuzopedia.ru/vuz/1/napr/93", 4, "Физика");
+                        University MGTU1 = new University("МГТУ", "Бизнес-информатика", 278, 241, "Математика (профиль), Русский язык, Обществознание", "Платное/Бесплатное", "Москва", 324143, "https://vuzopedia.ru/vuz/4/programs/bakispec/603", 3, "Без вступительных испытаний");
+                        University MGTU2 = new University("МГТУ", "Бизнес-информатика", 278, 241, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное", "Москва", 324143, "https://vuzopedia.ru/vuz/4/programs/bakispec/603", 3, "Без вступительных испытаний");
 
 
+                        University MFTI1 = new University("МФТИ", "Системный анализ и управление", 295, 280, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное", "Москва", 504000, "https://vuzopedia.ru/vuz/591/programs/bakispec/130", 3, "Без вступительных испытаний");
+                        University MFTI2 = new University("МФТИ", "Системный анализ и управление", 295, 280, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 504000, "https://vuzopedia.ru/vuz/591/programs/bakispec/130", 3, "Без вступительных испытаний");
+
+                        University NGU1 = new University("НГУ", "Организационная психология", 249, 177, "Биология, Математика (профиль), Русский язык", "Платное/Бесплатное", "Новосибирск", 125000, "https://vuzopedia.ru/vuz/1612/programs/bakispec/561", 4, "Без вступительных испытаний");
+
+
+                        addback(MGU1);
+                        addback(MGU2);
+                        addback(MGTU1);
+                        addback(MGTU2);
+
+                        addback(MFTI1);
+                        addback(MFTI2);
+                        addback(NGU1);
+
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }).start();
         }
         else{
             RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
@@ -153,7 +198,12 @@ private boolean hasVisited;
     }
 
 
-
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
     public void setProgressValue(int progress){
         pb.setProgress(progress);
         Thread thread = new Thread(new Runnable() {
