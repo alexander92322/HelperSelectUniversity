@@ -96,7 +96,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:onClick="onCheckboxClicked"
                 android:text="@string/math"
                 android:textColor="@color/black"
                 android:visibility="visible" />
@@ -107,7 +106,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:checked="false"
-                android:onClick="onCheckboxClicked"
                 android:text="@string/phys"
                 android:textColor="@color/black"
                 android:visibility="visible" />
@@ -119,7 +117,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:onClick="onCheckboxClicked"
                 android:text="@string/info"
                 android:textColor="@color/black"
                 android:visibility="visible" />
@@ -130,7 +127,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:checked="false"
-                android:onClick="onCheckboxClicked"
                 android:text="@string/bio"
                 android:textColor="@color/black"
                 android:visibility="visible" />
@@ -142,7 +138,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:onClick="onCheckboxClicked"
                 android:text="@string/lit"
                 android:textColor="@color/black"
                 android:visibility="visible" />
@@ -153,7 +148,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:checked="false"
-                android:onClick="onCheckboxClicked"
                 android:text="@string/chemistry"
                 android:textColor="@color/black"
                 android:visibility="visible" />
@@ -165,7 +159,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:onClick="onCheckboxClicked"
                 android:text="@string/eng"
                 android:textColor="@color/black"
                 android:visibility="visible" />
@@ -176,7 +169,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:checked="false"
-                android:onClick="onCheckboxClicked"
                 android:text="@string/history"
                 android:textColor="@color/black"
 
@@ -184,11 +176,10 @@
         </TableRow>
         <TableRow>
             <CheckBox
-                android:id="@+id/math_base"
+                android:id="@+id/obschestvo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:onClick="onCheckboxClicked"
                 android:text="@string/obschestvo"
                 android:textColor="@color/black"
                 android:visibility="visible" />
@@ -198,7 +189,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:onClick="onCheckboxClicked"
                 android:text="@string/geo"
                 android:textColor="@color/black"
                 android:visibility="visible" />
