@@ -91,7 +91,7 @@ private static String educational_place = "";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-        deleteUncorrectData();
+        //deleteUncorrectData();
         editText = findViewById(R.id.EGE_points);
         radioButton_top= findViewById(R.id.radioButton_yes);
         radioButton_free= findViewById(R.id.radioButton_yes2);

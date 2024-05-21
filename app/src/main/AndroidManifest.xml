@@ -23,10 +23,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SplashSelection"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".HomeScreen"
             android:exported="false"
             android:screenOrientation="portrait" />
