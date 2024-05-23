@@ -39,17 +39,22 @@ University content;
 ProgressBar pb;
 Handler handler = new Handler(Looper.getMainLooper());
     private int step=1;
+    private static UniversityDatabase universityDatabase;
 
     static final int time_streams = 500;
-    UniversityDatabase universityDatabase;
     private static final String TRACKSTART = String.valueOf(R.string.trackstart);
 private boolean hasVisited;
 
+    public static UniversityDatabase getDatabase() {
+        return universityDatabase;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        universityDatabase = Room.databaseBuilder(getApplicationContext(),
+                        UniversityDatabase.class, "University")
+                .build();
         pb = findViewById(R.id.progressBar);
         pb.setProgress(0);
         pb.setMax(300);
@@ -69,42 +74,50 @@ private boolean hasVisited;
         }
         else if(!isOnline()){
             step=7;
-            RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
-                @Override
-                public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                    super.onCreate(db);
-                }
 
-                @Override
-                public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                    super.onOpen(db);
-                }
-            };
-            universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
-                    "University").addCallback(myCallback).build();
             new Thread(new Runnable() {
                 public void run() {
+                    UniversityDatabase db = MainActivity.getDatabase();
+
                     try {
-                        University MGU1 = new University("МГУ", "Системное программирование и компьютерные науки", 405, 300, "Информатика, Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 409610, "https://vuzopedia.ru/vuz/1/programs/bakispec/62", 4, "Математика");
-                        University MGU2 = new University("МГУ", "Прикладная математика и физика", 275, 126, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 435970, "https://vuzopedia.ru/vuz/1/napr/93", 4, "Физика");
-                        University MGTU1 = new University("МГТУ", "Бизнес-информатика", 278, 241, "Математика (профиль), Русский язык, Обществознание", "Платное/Бесплатное", "Москва", 324143, "https://vuzopedia.ru/vuz/4/programs/bakispec/603", 3, "Без вступительных испытаний");
-                        University MGTU2 = new University("МГТУ", "Бизнес-информатика", 278, 241, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное", "Москва", 324143, "https://vuzopedia.ru/vuz/4/programs/bakispec/603", 3, "Без вступительных испытаний");
+                        University MGU1 = new University("МГУ", "Системное программирование и компьютерные науки", 405, 300, "Информатика, Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 409610,"https://vuzopedia.ru/vuz/1/programs/bakispec/62",  3, "Математика");
+                        University MGU2 = new University("МГУ", "Прикладная математика и физика", 275, 126, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 435970, "https://vuzopedia.ru/vuz/1/napr/93", 3, "Физика");
+                        University MGTU1 = new University("МГТУ", "Бизнес-информатика", 278, 241, "Математика (профиль), Русский язык, Обществознание", "Платное/Бесплатное" , "Москва",324143 , "https://vuzopedia.ru/vuz/4/programs/bakispec/603", 3, "Без вступительных испытаний");
+                        University MGTU2 = new University("МГТУ", "Бизнес-информатика", 278, 241, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное" , "Москва",324143 , "https://vuzopedia.ru/vuz/4/programs/bakispec/603", 3, "Без вступительных испытаний");
 
+                        University MFTI1 = new University("МФТИ", "Системный анализ и управление", 295, 280, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное", "Москва", 504000, "https://vuzopedia.ru/vuz/591/programs/bakispec/130",  3, "Без вступительных испытаний");
+                        University MFTI2 = new University("МФТИ", "Системный анализ и управление", 295, 280, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 504000, "https://vuzopedia.ru/vuz/591/programs/bakispec/130",  3, "Без вступительных испытаний");
 
-                        University MFTI1 = new University("МФТИ", "Системный анализ и управление", 295, 280, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное", "Москва", 504000, "https://vuzopedia.ru/vuz/591/programs/bakispec/130", 3, "Без вступительных испытаний");
-                        University MFTI2 = new University("МФТИ", "Системный анализ и управление", 295, 280, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 504000, "https://vuzopedia.ru/vuz/591/programs/bakispec/130", 3, "Без вступительных испытаний");
+                        University NGU1 = new University("НГУ", "Организационная психология", 249, 177, "Биология, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Новосибирск", 125000, "https://vuzopedia.ru/vuz/1612/programs/bakispec/561", 3, "Без вступительных испытаний");
 
-                        University NGU1 = new University("НГУ", "Организационная психология", 249, 177, "Биология, Математика (профиль), Русский язык", "Платное/Бесплатное", "Новосибирск", 125000, "https://vuzopedia.ru/vuz/1612/programs/bakispec/561", 4, "Без вступительных испытаний");
+                        University NGTU1 = new University("НГТУ", "Техническая защита информации", 230, 126, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное" ,"Новосибирск", 149000, "https://vuzopedia.ru/vuz/1567/programs/bakispec/807", 3, "Математика в инженерном деле");
+                        University NGTU2 = new University("НГТУ", "Техническая защита информации", 230, 126, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Новосибирск", 149000, "https://vuzopedia.ru/vuz/1567/programs/bakispec/807", 3, "Математика в инженерном деле");
+
+                        University SIN1 = new University("Синергия", "Предпринимательство", 0, 255, "Информатика, Математика (профиль), Русский язык", "Платное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
+                        University SIN2 = new University("Синергия", "Предпринимательство", 0, 255, "История, Математика (профиль), Русский язык", "Платное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
+                        University SIN3 = new University("Синергия", "Предпринимательство", 0, 255, "География, Математика (профиль), Русский язык", "Платное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
+                        University SIN4 = new University("Синергия", "Предпринимательство", 0, 255, "Иностранный, Математика (профиль), Русский язык", "Платное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
+
+                        University SPBGU1 = new University("СПбГУ", "Математика", 267, 260, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Москва", 317000, "https://vuzopedia.ru/vuz/1239/programs/bakispec/513", 3, "Без вступительных испытаний");
+                        University SPBGU2 = new University("СПбГУ", "Математика", 267, 260, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное" ,"Москва", 317000, "https://vuzopedia.ru/vuz/1239/programs/bakispec/513", 3, "Без вступительных испытаний");
+
 
 
                         addback(MGU1);
                         addback(MGU2);
                         addback(MGTU1);
                         addback(MGTU2);
-
                         addback(MFTI1);
                         addback(MFTI2);
                         addback(NGU1);
+                        addback(NGTU1);
+                        addback(NGTU2);
+                        addback(SIN1);
+                        addback(SIN2);
+                        addback(SIN3);
+                        addback(SIN4);
+                        addback(SPBGU1);
+                        addback(SPBGU2);
 
                     } catch (Exception e) {
                         throw new RuntimeException(e);
@@ -113,21 +126,11 @@ private boolean hasVisited;
             }).start();
         }
         else{
-            RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
-                @Override
-                public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                    super.onCreate(db);
-                }
 
-                @Override
-                public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                    super.onOpen(db);
-                }
-            };
-            universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
-                    "University").addCallback(myCallback).build();
             new Thread(new Runnable() {
                 public void run() {
+                    UniversityDatabase db = MainActivity.getDatabase();
+
                     try {
                         University MGU1 = new University("МГУ", "Системное программирование и компьютерные науки", 405, 300, "Информатика, Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 409610,"https://vuzopedia.ru/vuz/1/programs/bakispec/62",  3, "Математика");
                         University MGU2 = new University("МГУ", "Прикладная математика и физика", 275, 126, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 435970, "https://vuzopedia.ru/vuz/1/napr/93", 3, "Физика");
@@ -304,7 +307,7 @@ private boolean hasVisited;
             URL url=new URL(path);
             connection =(HttpsURLConnection)url.openConnection();
             connection = (HttpsURLConnection) url.openConnection();
-            connection.setRequestProperty("User-Agent", "'User-Agent': Mozilla/5.0 (Android 14; Mobile; rv:68.0) Gecko/68.0 Firefox/126.0");
+//            connection.setRequestProperty("User-Agent", "'User-Agent': Mozilla/5.0 (Android 14; Mobile; rv:68.0) Gecko/68.0 Firefox/126.0");
             connection.setRequestMethod("GET");
             connection.setReadTimeout(1000);
             connection.connect();
