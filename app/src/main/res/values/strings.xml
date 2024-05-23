@@ -23,7 +23,7 @@
     <string name="chemistry">Химия</string>
     <string name="history">История</string>
     <string name="lit">Литература</string>
-    <string name="eng">Иностранный язык</string>
+    <string name="eng">Иностранный</string>
     <string name="min_point">Ваши баллы ниже возможных проходных</string>
     <string name="max_point">Слишком высокий балл!</string>
     <string name="empty_fields_point">Введите свои баллы!</string>
@@ -41,6 +41,19 @@
     <string name="paidandfree">Платное/Бесплатное</string>
     <string name="search">Найти</string>
     <string name="bt_news">Новости</string>
+    <string name="trackstart">trackstart</string>
+    <string name="findcity"><![CDATA[id=\"newChooseq\" class=\"mmob\">]]></string>
+    <string name="findcityEnd"><![CDATA[</span>]]></string>
+    <string name="findpointf">которые есть в базе сайта</string>
+    <string name="findpointf1"><![CDATA[<div class=\"itemNewBlockCombActive\" style=\"position: relative;]]></string>
+    <string name="findUniversityCalled">, профиль</string>
+    <string name="findsubject1">"1. "</string>
+    <string name="findsubject2">"2. "</string>
+    <string name="findsubject3">"3. "</string>
+    <string name="findprice"><![CDATA["Стоимость: <strong>от "]]></string>
+    <string name="in">" в "</string>
+    <string name="findsubjectEnd">" - "</string>
+    <string name="NotFoundedVUZes">К сожалению, по вашим фильтрам нет ВУЗов</string>
 
 
     <string-array name="spinner_value">

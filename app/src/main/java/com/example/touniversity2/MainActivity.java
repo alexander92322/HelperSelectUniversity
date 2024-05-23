@@ -14,31 +14,20 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
 
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -53,7 +42,7 @@ Handler handler = new Handler(Looper.getMainLooper());
 
     static final int time_streams = 500;
     UniversityDatabase universityDatabase;
-    private static final String TRACKSTART = "trackstart";
+    private static final String TRACKSTART = String.valueOf(R.string.trackstart);
 private boolean hasVisited;
 
     @Override
@@ -63,7 +52,7 @@ private boolean hasVisited;
 
         pb = findViewById(R.id.progressBar);
         pb.setProgress(0);
-        pb.setMax(200);
+        pb.setMax(300);
         setProgressValue(progress);
 
         SharedPreferences sp = getSharedPreferences(TRACKSTART, Context.MODE_PRIVATE);
@@ -76,10 +65,10 @@ private boolean hasVisited;
 
 
         if(hasVisited){
-            step=5;
+            step=7;
         }
         else if(!isOnline()){
-            step=5;
+            step=7;
             RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
                 @Override
                 public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -140,45 +129,65 @@ private boolean hasVisited;
             new Thread(new Runnable() {
                 public void run() {
                     try {
-                        University MGU1 = new University("МГУ", "Системное программирование и компьютерные науки", 405, 300, "Информатика, Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 409610,"https://vuzopedia.ru/vuz/1/programs/bakispec/62",  4, "Математика");
-                        University MGU2 = new University("МГУ", "Прикладная математика и физика", 275, 126, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 435970, "https://vuzopedia.ru/vuz/1/napr/93", 4, "Физика");
+                        University MGU1 = new University("МГУ", "Системное программирование и компьютерные науки", 405, 300, "Информатика, Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 409610,"https://vuzopedia.ru/vuz/1/programs/bakispec/62",  3, "Математика");
+                        University MGU2 = new University("МГУ", "Прикладная математика и физика", 275, 126, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 435970, "https://vuzopedia.ru/vuz/1/napr/93", 3, "Физика");
                         University MGTU1 = new University("МГТУ", "Бизнес-информатика", 278, 241, "Математика (профиль), Русский язык, Обществознание", "Платное/Бесплатное" , "Москва",324143 , "https://vuzopedia.ru/vuz/4/programs/bakispec/603", 3, "Без вступительных испытаний");
                         University MGTU2 = new University("МГТУ", "Бизнес-информатика", 278, 241, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное" , "Москва",324143 , "https://vuzopedia.ru/vuz/4/programs/bakispec/603", 3, "Без вступительных испытаний");
-
 
                         University MFTI1 = new University("МФТИ", "Системный анализ и управление", 295, 280, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное", "Москва", 504000, "https://vuzopedia.ru/vuz/591/programs/bakispec/130",  3, "Без вступительных испытаний");
                         University MFTI2 = new University("МФТИ", "Системный анализ и управление", 295, 280, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 504000, "https://vuzopedia.ru/vuz/591/programs/bakispec/130",  3, "Без вступительных испытаний");
 
-                        University NGU1 = new University("НГУ", "Организационная психология", 249, 177, "Биология, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Новосибирск", 125000, "https://vuzopedia.ru/vuz/1612/programs/bakispec/561", 4, "Без вступительных испытаний");
+                        University NGU1 = new University("НГУ", "Организационная психология", 249, 177, "Биология, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Новосибирск", 125000, "https://vuzopedia.ru/vuz/1612/programs/bakispec/561", 3, "Без вступительных испытаний");
+
+                        University NGTU1 = new University("НГТУ", "Техническая защита информации", 230, 126, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное" ,"Новосибирск", 149000, "https://vuzopedia.ru/vuz/1567/programs/bakispec/807", 3, "Математика в инженерном деле");
+                        University NGTU2 = new University("НГТУ", "Техническая защита информации", 230, 126, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Новосибирск", 149000, "https://vuzopedia.ru/vuz/1567/programs/bakispec/807", 3, "Математика в инженерном деле");
+
+                        University SIN1 = new University("Синергия", "Предпринимательство", 0, 255, "Информатика, Математика (профиль), Русский язык", "Платное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
+                        University SIN2 = new University("Синергия", "Предпринимательство", 0, 255, "История, Математика (профиль), Русский язык", "Платное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
+                        University SIN3 = new University("Синергия", "Предпринимательство", 0, 255, "География, Математика (профиль), Русский язык", "Платное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
+                        University SIN4 = new University("Синергия", "Предпринимательство", 0, 255, "Иностранный, Математика (профиль), Русский язык", "Платное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
+
+                        University SPBGU1 = new University("СПбГУ", "Математика", 267, 260, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Москва", 317000, "https://vuzopedia.ru/vuz/1239/programs/bakispec/513", 3, "Без вступительных испытаний");
+                        University SPBGU2 = new University("СПбГУ", "Математика", 267, 260, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное" ,"Москва", 317000, "https://vuzopedia.ru/vuz/1239/programs/bakispec/513", 3, "Без вступительных испытаний");
+
 
 
                         addback(MGU1);
                         addback(MGU2);
                         addback(MGTU1);
                         addback(MGTU2);
-
                         addback(MFTI1);
                         addback(MFTI2);
                         addback(NGU1);
-
-
+                        addback(NGTU1);
+                        addback(NGTU2);
+                        addback(SIN1);
+                        addback(SIN2);
+                        addback(SIN3);
+                        addback(SIN4);
+                        addback(SPBGU1);
+                        addback(SPBGU2);
 
                         addback(getContent("https://vuzopedia.ru/vuz/1848/programs/bakispec/87"));
                         addback(getContent("https://vuzopedia.ru/vuz/725/programs/bakispec/164"));
-                        addback(getContent("https://vuzopedia.ru/vuz/1189/programs/bakispec/2272"));
                         Thread.sleep(1000);
+                        addback(getContent("https://vuzopedia.ru/vuz/1189/programs/bakispec/2272"));
                         addback(getContent("https://vuzopedia.ru/vuz/1567/programs/bakispec/1666"));
+                        Thread.sleep(1000);
                         addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/108"));
                         addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/2277"));
-                        Thread.sleep(1000);
+                        Thread.sleep(2000);
                         addback(getContent("https://vuzopedia.ru/vuz/1189/programs/bakispec/46"));
                         addback(getContent("https://vuzopedia.ru/vuz/725/programs/bakispec/1546"));
-                        addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/81"));
                         Thread.sleep(1000);
-                        addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/186"));
+                        addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/81"));
                         addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/6122"));
-                        addback(getContent("https://vuzopedia.ru/vuz/2554/programs/bakispec/125"));
+                        Thread.sleep(1500);
                         addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/85"));
+                        addback(getContent("https://vuzopedia.ru/vuz/1567/programs/bakispec/799"));
+                        Thread.sleep(1500);
+                        addback(getContent("https://vuzopedia.ru/vuz/1380/programs/bakispec/518"));
+                        addback(getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/86"));
                         addback(getContent("https://vuzopedia.ru/vuz/1612/programs/bakispec/400"));
 
                         //Thread.sleep(500);
@@ -214,7 +223,7 @@ private boolean hasVisited;
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                if(pb.getProgress()>=200)
+                if(pb.getProgress()>=300)
                 {
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -229,7 +238,7 @@ private boolean hasVisited;
                     setProgressValue(progress + step);
                 }
 
-                if(progress==150)
+                if(progress==250)
                 {
                     TextView textView = findViewById(R.id.small_text);
                     textView.setText(R.string.small_text2);
@@ -274,18 +283,18 @@ private boolean hasVisited;
 
         int index;
         int index2;
-        String findcity = "id=\"newChooseq\" class=\"mmob\">";
-        String findcityEnd = "</span>";
-        String findpointf = "которые есть в базе сайта";
-        String findpointp1 = "<div class=\"itemNewBlockCombActive\" style=\"position: relative;";
-        String findUniversityCalled = ", профиль";
-        String findsubject1 = "1. ";
-        String findsubject2 = "2. ";
-        String findsubject3 = "3. ";
-        String findprice = "Стоимость: <strong>от ";
-        String in= " в ";
+        String findcity = getString(R.string.findcity);
+        String findcityEnd = getString(R.string.findcityEnd);
+        String findpointf = getString(R.string.findpointf);
+        String findpointp1 = getString(R.string.findpointf1);
+        String findUniversityCalled = getString(R.string.findUniversityCalled);
+        String findsubject1 = getString(R.string.findsubject1);
+        String findsubject2 = getString(R.string.findsubject2);
+        String findsubject3 = getString(R.string.findsubject3);
+        String findprice = getString(R.string.findprice);
+        String in= getString(R.string.in);
 
-        String findsubjectEnd = " - ";
+        String findsubjectEnd = getString(R.string.findsubjectEnd);
         String cut = "";
 
         BufferedReader reader=null;

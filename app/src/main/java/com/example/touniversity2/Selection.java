@@ -1,56 +1,50 @@
 package com.example.touniversity2;
 
-import androidx.annotation.NonNull;
+import static com.example.touniversity2.R.string.NotFoundedVUZes;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
+
 
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.touniversity2.databinding.ActivityMainBinding;
 import com.example.touniversity2.databinding.ActivitySelectionBinding;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Selection extends AppCompatActivity {
-    University university = new University("","",0,0,"","","",0,"",0,"");
     List<University> universityList = new LinkedList<>();
     private static int point_EGE= 0;
     private static boolean top=false;
     private boolean call_adapter=false;
-    UniversityDatabase universityDatabase;
     private static boolean paid=false;
     private static String educational_place = "";
     private static int value_subject=0;
-    TextView textView;
     private int sch;
     ArrayList<String> subject = new ArrayList<String>();
     String subjects;
     private ActivitySelectionBinding binding;
     private UniversityAdapter adapter; // Переменная класса для хранения адаптера
     private List<University> universityListAdapter; // Список университетов
+    private static UniversityDatabase universityDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySelectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class, "University").build();
+
         getAbiturientData();
-//        bt.setText(point_EGE+ " " + top+ " " + paid +" "+ educational_place + " " + value_subject+ " "+ subject);
          subjects = String.valueOf(subject);
 
         subjects=subjects.replace("[","");
@@ -58,6 +52,9 @@ public class Selection extends AppCompatActivity {
         subjects=subjects.replace("]","");
 
 
+    }
+    public static UniversityDatabase getDatabase() {
+        return universityDatabase;
     }
     public void onClickBack(View view){
         Intent intent = new Intent(Selection.this, HomeScreen.class);
@@ -79,23 +76,12 @@ public class Selection extends AppCompatActivity {
     public void BtClick(View view){
         sch++;
         Button btn = findViewById(R.id.button2);
-        RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
-            @Override
-            public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                super.onCreate(db);
-            }
-
-            @Override
-            public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                super.onOpen(db);
-            }
-        };
-        universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
-                "University").addCallback(myCallback).build();
         new Thread(new Runnable() {
             public void run() {
+                UniversityDatabase db = Selection.getDatabase();
+
                 if(point_EGE==0){
-                    universityList = universityDatabase.getUniversityDAO().getAllUniversity();
+                    universityList = db.getUniversityDAO().getAllUniversity();
                 }
                 else {
                     if (paid && (educational_place.equals("Москва") || educational_place.equals("Санкт-Петербург"))) {
@@ -120,7 +106,7 @@ public class Selection extends AppCompatActivity {
        setDataToAdapter();
        if(sch==2){btn.setVisibility(View.INVISIBLE);}
        if(sch==2 && universityList.isEmpty()){
-           Toast.makeText(this, "К сожалению, по вашим фильтрам нет ВУЗов", Toast.LENGTH_SHORT).show();
+           Toast.makeText(this, NotFoundedVUZes, Toast.LENGTH_SHORT).show();
        }
     }
 

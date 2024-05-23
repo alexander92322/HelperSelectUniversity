@@ -2,11 +2,9 @@ package com.example.touniversity2;
 
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
-import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
+
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,31 +19,13 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import java.util.HashSet;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-import javax.net.ssl.HttpsURLConnection;
+import java.util.Set;
 
 
 public class HomeScreen extends AppCompatActivity {
@@ -62,21 +42,13 @@ public class HomeScreen extends AppCompatActivity {
     CheckBox checkBox_lang;
     CheckBox checkBox_hist;
     CheckBox checkBox_geo;
-
-
-    // CheckBox checkBox_math_base = findViewById(R.id.math_base);
     Spinner spinner_educational_place ;
-//    University content;
-//    UniversityDatabase universityDatabase;
-public static final String APP_PREFERENCES = "mysettings";
-    public static final String APP_PREFERENCES_POINT = "POINT";
-    public static final String APP_PREFERENCES_CITY = "CITY";
-    public static final String APP_PREFERENCES_TOP = "TOP";
-    public static final String APP_PREFERENCES_PAID = "PAID";
-    Set<String> defaultSet = new HashSet<>();
+    private static final String APP_PREFERENCES = "mysettings";
+    private static final String APP_PREFERENCES_POINT = "POINT";
+    private static final String APP_PREFERENCES_CITY = "CITY";
+    private static final String APP_PREFERENCES_TOP = "TOP";
+    private static final String APP_PREFERENCES_PAID = "PAID";
     SharedPreferences mSettings;
-
-    private int idSelectedItems;
     private static boolean data_correct=false;
     private static final int min_point=156;
     private static int point=0;
@@ -85,12 +57,14 @@ public static final String APP_PREFERENCES = "mysettings";
 private static boolean paid=false;
 private static String educational_place = "";
     ArrayList<String> subject = new ArrayList<>();
-    UniversityDatabase universityDatabase;
+    static UniversityDatabase universityDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+        universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class, "University").build();
+
         deleteUncorrectData();
         editText = findViewById(R.id.EGE_points);
         radioButton_top= findViewById(R.id.radioButton_yes);
@@ -123,7 +97,6 @@ private static String educational_place = "";
         }
 
 
-        List<String> checkboxesList = new ArrayList<>(Arrays.asList("Математика (профиль)", "Обществознание", "Физика", "География", "Информатика", "Биология", "Химия", "История", "Литература", "Иностранный язык"));
 
         Set<String> ret = mSettings.getStringSet("subject_list", new HashSet<String>());
         for (String i : ret) {
@@ -149,7 +122,7 @@ private static String educational_place = "";
                 } else if (i.equals("История")) {
                     checkBox_hist.setChecked(true);
                     subject.add(i);
-                } else if (i.equals("Иностранный язык")) {
+                } else if (i.equals("Иностранный")) {
                     checkBox_lang.setChecked(true);
                     subject.add(i);
                 } else if (i.equals("Химия")) {
@@ -167,6 +140,9 @@ private static String educational_place = "";
 
 
     }
+    public static UniversityDatabase getDatabase() {
+        return universityDatabase;
+    }
     public void savetoSharedPreference(){
         SharedPreferences.Editor editor = mSettings.edit();
         editor.putInt(APP_PREFERENCES_POINT, point);
@@ -179,28 +155,15 @@ private static String educational_place = "";
         editor.putStringSet("subject_list", set);
         editor.apply();
     }
-    public void deleteUncorrectData(){
-
-        RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
-            @Override
-            public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                super.onCreate(db);
-            }
-
-            @Override
-            public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                super.onOpen(db);
-            }
-        };
-        universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
-                "University").addCallback(myCallback).build();
+    public void deleteUncorrectData() {
         new Thread(new Runnable() {
             public void run() {
-                // universityDatabase.getUniversityDAO().deleteItems();
-                universityDatabase.getUniversityDAO().deletedublicate();
+                UniversityDatabase db = HomeScreen.getDatabase();
+                db.getUniversityDAO().deleteItems();
             }
         }).start();
     }
+
     @Override
     protected void onStart() {
         super.onStart();
