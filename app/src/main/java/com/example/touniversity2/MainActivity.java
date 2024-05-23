@@ -126,10 +126,21 @@ private boolean hasVisited;
             }).start();
         }
         else{
+            RoomDatabase.Callback myCallback = new RoomDatabase.Callback() {
+                @Override
+                public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                    super.onCreate(db);
+                }
 
+                @Override
+                public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                    super.onOpen(db);
+                }
+            };
+            universityDatabase = Room.databaseBuilder(getApplicationContext(), UniversityDatabase.class,
+                    "University").addCallback(myCallback).build();
             new Thread(new Runnable() {
                 public void run() {
-                    UniversityDatabase db = MainActivity.getDatabase();
 
                     try {
                         University MGU1 = new University("МГУ", "Системное программирование и компьютерные науки", 405, 300, "Информатика, Математика (профиль), Русский язык, Физика", "Платное/Бесплатное", "Москва", 409610,"https://vuzopedia.ru/vuz/1/programs/bakispec/62",  3, "Математика");
@@ -145,10 +156,10 @@ private boolean hasVisited;
                         University NGTU1 = new University("НГТУ", "Техническая защита информации", 230, 126, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное" ,"Новосибирск", 149000, "https://vuzopedia.ru/vuz/1567/programs/bakispec/807", 3, "Математика в инженерном деле");
                         University NGTU2 = new University("НГТУ", "Техническая защита информации", 230, 126, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Новосибирск", 149000, "https://vuzopedia.ru/vuz/1567/programs/bakispec/807", 3, "Математика в инженерном деле");
 
-                        University SIN1 = new University("Синергия", "Предпринимательство", 270, 255, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
-                        University SIN2 = new University("Синергия", "Предпринимательство", 270, 255, "История, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
-                        University SIN3 = new University("Синергия", "Предпринимательство", 270, 255, "География, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
-                        University SIN4 = new University("Синергия", "Предпринимательство", 270, 255, "Иностранный, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
+//                        University SIN1 = new University("Синергия", "Предпринимательство", 270, 255, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
+//                        University SIN2 = new University("Синергия", "Предпринимательство", 270, 255, "История, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
+//                        University SIN3 = new University("Синергия", "Предпринимательство", 270, 255, "География, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
+//                        University SIN4 = new University("Синергия", "Предпринимательство", 270, 255, "Иностранный, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Москва", 230000, "https://vuzopedia.ru/vuz/1380/programs/bakispec/518", 3, "Математика в социально-экономическом профиле");
 
                         University SPBGU1 = new University("СПбГУ", "Математика", 267, 260, "Информатика, Математика (профиль), Русский язык", "Платное/Бесплатное" ,"Москва", 317000, "https://vuzopedia.ru/vuz/1239/programs/bakispec/513", 3, "Без вступительных испытаний");
                         University SPBGU2 = new University("СПбГУ", "Математика", 267, 260, "Математика (профиль), Русский язык, Физика", "Платное/Бесплатное" ,"Москва", 317000, "https://vuzopedia.ru/vuz/1239/programs/bakispec/513", 3, "Без вступительных испытаний");
@@ -164,10 +175,10 @@ private boolean hasVisited;
                         addback(NGU1);
                         addback(NGTU1);
                         addback(NGTU2);
-                        addback(SIN1);
-                        addback(SIN2);
-                        addback(SIN3);
-                        addback(SIN4);
+//                        addback(SIN1);
+//                        addback(SIN2);
+//                        addback(SIN3);
+//                        addback(SIN4);
                         addback(SPBGU1);
                         addback(SPBGU2);
 
@@ -179,19 +190,13 @@ private boolean hasVisited;
                         Thread.sleep(1000);
                         addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/108"));
                         addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/2277"));
-                        Thread.sleep(2000);
+                        Thread.sleep(1000);
                         addback(getContent("https://vuzopedia.ru/vuz/1189/programs/bakispec/46"));
                         addback(getContent("https://vuzopedia.ru/vuz/725/programs/bakispec/1546"));
                         Thread.sleep(1000);
                         addback(getContent("https://vuzopedia.ru/vuz/342/programs/bakispec/81"));
                         addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/6122"));
-                        Thread.sleep(1500);
-                        addback(getContent("https://vuzopedia.ru/vuz/1751/programs/bakispec/85"));
-                        addback(getContent("https://vuzopedia.ru/vuz/1567/programs/bakispec/799"));
-                        Thread.sleep(1500);
-                        addback(getContent("https://vuzopedia.ru/vuz/1380/programs/bakispec/518"));
-                        addback(getContent("https://vuzopedia.ru/vuz/1239/programs/bakispec/86"));
-                        addback(getContent("https://vuzopedia.ru/vuz/1612/programs/bakispec/400"));
+
 
                         //Thread.sleep(500);
 
